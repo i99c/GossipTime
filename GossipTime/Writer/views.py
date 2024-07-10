@@ -25,4 +25,6 @@ def post_list(request):
     return render(request, 'Main/blog-category.html', {'posts': posts})
 
 
+def news(request):
+    return render(request, 'Writer/news.html')
 
