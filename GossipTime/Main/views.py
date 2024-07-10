@@ -3,7 +3,7 @@ from .models import *
 from Writer.models import Post
 
 def index(request):
-     return render(request, 'Main/base.html')
+    return render(request, 'Main/index.html')
 
 def blog(request):
     return render(request, 'Main/blog.html')
