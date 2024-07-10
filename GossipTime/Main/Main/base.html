@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html class="no-js" lang="en">
+  <head>
+    <!-- Meta Data -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Magazin</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/media/favicon.png' %}" />
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/font-awesome.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/icon-font.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/remixicon.css' %}" />
+    <!-- Site Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets/css/app.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}" />
+  </head>
+  <body>
+    {% include 'Main/partials/__navbar.html' %}
+    {% include 'Main/partials/__offcanvus.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% include 'Main/partials/__footer.html' %}
+
+    <!-- Jquery JS -->
+    <script src="{% static 'assets/js/vendor/jquery-3.6.0.min.js' %}"></script>
+    <!-- Vendors JS -->
+    <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/odometer.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/jquery-appear.js' %}"></script>
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/app.js' %}"></script>
+  </body>
+</html>
