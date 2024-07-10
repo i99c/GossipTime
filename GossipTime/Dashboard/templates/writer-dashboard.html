@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magazin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'Dashboard/css/style.css' %}" />
+  </head>
+  <body>
+    <!-- Wrapper Başlangıç -->
+    <div class="page-wrapper">
+      <!-- Side Bar Başlangıç -->
+      <aside class="side-bar">
+        <!-- Navbar Links Başlangıç -->
+        <span class="menu-label">MENÜ</span>
+        <ul class="navbar-links navbar-links-1">
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
+              <span class="nav-text">Ana Sayfa</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-bell"></i></span>
+              <span class="nav-text">Bildirimler</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-thumbs-up"></i></span>
+              <span class="nav-text">Beğeniler</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-thumbs-down"></i></span>
+              <span class="nav-text">Beğenilmeyenler</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-comment"></i></span>
+              <span class="nav-text">Yorumlar</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-brands fa-blogger-b"></i></span>
+              <span class="nav-text">Bloglar</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-pencil"></i></span>
+              <span class="nav-text">Editlenenler</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-handshake"></i></span>
+              <span class="nav-text">Etkileşim</span>
+            </a>
+          </li>
+        </ul>
+        <!-- Navbar Links Bitiş -->
+        <span class="line"></span>
+        <span class="menu-label">TERCİHLER</span>
+        <ul class="navbar-links navbar-links-2">
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-file"></i></span>
+              <span class="nav-text">Yapılan Haberler</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-file"></i></span>
+              <span class="nav-text">Editlenen Haberler</span>
+            </a>
+          </li>
+        </ul>
+        <!-- Side Bar Footer -->
+        <div class="sidebar-footer">
+          <div class="settings">
+            <span class="gear-icon"><i class="fa-solid fa-gear"></i></span>
+            <span class="text">Ayarlar</span>
+          </div>
+          <div class="logoutBtn">
+            <span class="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+            <span class="text">Çıkış</span>
+          </div>
+        </div>
+      </aside>
+      <!-- Side Bar Bitiş -->
+      <!-- Content Section Başlangıç -->
+      <div class="contents" id="contents">
+        <!-- Yazar Kendini Tanıtma -->
+        {% include 'partials/kendini-tanit.html' %}
+
+        <!-- Description Başlangıç -->
+        <div class="description">
+          <!-- Column 1 Başlangıç -->
+          <div class="col-1">
+            <!-- Kutular Başlangıç -->
+            <div class="boxes-row">
+              <div class="balance-box">
+                <div class="subject-row">
+                  <div class="text">
+                    <h3>Toplam Görüntülenme:</h3>
+                    <h1>40.456 <sub>Gör.</sub></h1>
+                  </div>
+                  <div class="icon">
+                    <i class="fa-solid fa-arrow-up"></i>
+                  </div>
+                </div>
+                <div class="progress-row">
+                  <div class="subject">Progress</div>
+                  <div class="progress-bar">
+                    <div class="progress-line" value="91%" style="max-width: 91%;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="balance-box">
+                <div class="subject-row">
+                  <div class="text">
+                    <h3>Toplam Beğeni:</h3>
+                    <h1>22.456 <sub>Beğeni</sub></h1>
+                  </div>
+                  <div class="icon">
+                    <i class="fa-solid fa-arrow-down"></i>
+                  </div>
+                </div>
+                <div class="progress-row">
+                  <div class="subject">Progress</div>
+                  <div class="progress-bar">
+                    <div class="progress-line" value="73%" style="max-width: 73%;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Kutular Bitiş -->
+            <!-- Buttonlar Başlangıç -->
+            <div class="dashboard">
+              <h1>Düzenleme</h1>
+              <div class="buttons-container">
+                <a href="#" class="button create-button"><i class="fas fa-plus"></i> Post Oluştur</a>
+                <a href="#" class="button edit-button"><i class="fas fa-edit"></i> Postu Düzenle</a>
+              </div>
+            </div>
+            <!-- Buttonlar Bitiş -->
+          </div>
+          <!-- Column 1 Bitiş -->
+        </div>
+
+        <!-- Description Bitiş -->
+        <div class="container">
+          <div class="box">
+            <h2>En Son Düzenlenen</h2>
+            <p>Post Başlığı:</p>
+            <p>Düzenleme Tarihi:</p>
+          </div>
+          <div class="box">
+            <h2>En Son Beğenilen</h2>
+            <p>Post Başlığı:</p>
+            <p>Beğeni Sayısı:</p>
+          </div>
+          <div class="box">
+            <h2>En Son Gönderilen:</h2>
+            <p>Post Başlığı:</p>
+            <p>Gönderim Tarihi:</p>
+          </div>
+        </div>
+        <div class="notification-box">
+          <h2>Bildirimler</h2>
+          <ul class="notifications-list">
+            <li>
+              <span class="notification-icon"><i class="fa-solid fa-bell"></i></span>
+              <span class="notification-text">Yeni bir yorum aldınız.</span>
+              <span class="notification-time">2 saat önce</span>
+            </li>
+            <li>
+              <span class="notification-icon"><i class="fa-solid fa-bell"></i></span>
+              <span class="notification-text">Bir beğeni aldınız.</span>
+              <span class="notification-time">3 saat önce</span>
+            </li>
+            <!-- Buraya istediğiniz bildirimleri ekleyebilirsiniz -->
+          </ul>
+          <a href="#" class="view-all-notifications">Tüm Bildirimleri Gör</a>
+        </div>
+      </div>
+      <!-- Content Section Bitiş -->
+    </div>
+    <!-- Wrapper Bitiş -->
+    <script src="https://unpkg.com/htmx.org@2.0.0" integrity="sha384-wS5l5IKJBvK6sPTKa2WZ1js3d947pvWXbPJ1OmWfEuxLgeHcEbjUUA5i9V5ZkpCw" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/767955e4cb.js" crossorigin="anonymous"></script>
+    <script src="{% static 'Dashboard/js/script.js' %}"></script>
+  </body>
+</html>

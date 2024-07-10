@@ -1,0 +1,13 @@
+{% comment %} <form hx-post='{% url "writer_edit" writer.slug %}' hx-target='#contents' hx-swap='innerHTML'>
+    {% csrf_token %}
+    <div class="edit-container">
+        <input name="firstname" type="text" class="subtitle-input" value="{{ writer.user.first_name }}" />
+        <input name="lastname" type="text" class="title-input" value="{{ writer.user.last_name }}" />
+        <textarea name="bio" rows='2' class="bio-input">{{ writer.bio }}</textarea>
+        <button type="submit"><i class="fas fa-save save-icon"></i></button>
+    </div>
+    <div class="social-share-author-2">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+</form> {% endcomment %}

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reader Dashboard</title>
+    <link rel="stylesheet" href="{% static 'Dashboard/css/style.css' %}" />
+  </head>
+  <body>
+    <!-- ? Wrapper Başlangıç -->
+    <div class="page-wrapper">
+      <!-- ! Üst Bar Başlangıç -->
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="logo">
+            <h2>Magazin</h2>
+          </div>
+        </div>
+        <div class="search-box">
+          <input type="text" class="input-box" placeholder="Ne aramıştınız..." />
+          <span class="search-btn"><i class="fa-solid fa-search"></i></span>
+        </div>
+        <div class="top-bar-right">
+          <div class="mode-switch">
+            <i class="fa-solid fa-moon"></i>
+          </div>
+          <div class="notifications">
+            <i class="fa-solid fa-bell"></i>
+          </div>
+          <div class="profile">
+            <img src="#" alt="Profil Resmi" />
+          </div>
+        </div>
+      </div>
+      <!-- ! Üst Bar Bitiş -->
+
+      <!-- ! Side Bar Başlangıç -->
+      <aside class="side-bar">
+        <!-- ! Navbar Links Başlangıç -->
+        <span class="menu-label">MENÜ</span>
+        <ul class="navbar-links navbar-links-1">
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
+              <span class="nav-text">Ana Sayfa</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-bell"></i></span>
+              <span class="nav-text">Bildirimler</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-thumbs-up"></i></span>
+              <span class="nav-text">Beğendiklerim</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-thumbs-down"></i></span>
+              <span class="nav-text">Beğenmediklerim</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="nav-icon"><i class="fa-solid fa-comment"></i></span>
+              <span class="nav-text">Yorumlarım</span>
+            </a>
+          </li>
+        </ul>
+        <!-- ! Navbar Links Bitiş -->
+
+        <!-- ! Side Bar Footer -->
+        <div class="sidebar-footer">
+          <div class="settings">
+            <span class="gear-icon"><i class="fa-solid fa-gear"></i></span>
+            <span class="text">Ayarlar</span>
+          </div>
+          <div class="logoutBtn">
+            <span class="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+            <span class="text">Çıkış</span>
+          </div>
+        </div>
+      </aside>
+      <!-- ! Side Bar Bitiş -->
+
+      <!-- Content Sectiond Başlangıç -->
+      <div class="contents">
+        <!-- Description Başlangıç -->
+        <!-- Description Bitiş -->
+        <div class="container">
+          <div class="box">
+            <h2>En Son Yorum Yapılan</h2>
+            <p>Post Başlığı</p>
+            <p>Düzenleme Tarihi</p>
+          </div>
+          <div class="box">
+            <h2>En Son Beğenilen</h2>
+            <p>Post Başlığı</p>
+            <p>Beğeni Sayısı</p>
+          </div>
+        </div>
+        <div class="notification-box">
+          <h2>Bildirimler</h2>
+          <ul class="notifications-list">
+            <li>
+              <span class="notification-icon"><i class="fa-solid fa-bell"></i></span>
+              <span class="notification-text">Yeni bir yorum aldınız.</span>
+              <span class="notification-time">2 saat önce</span>
+            </li>
+            <li>
+              <span class="notification-icon"><i class="fa-solid fa-bell"></i></span>
+              <span class="notification-text">Bir beğeni aldınız.</span>
+              <span class="notification-time">3 saat önce</span>
+            </li>
+            <!-- Buraya istediğiniz bildirimleri ekleyebilirsiniz -->
+          </ul>
+          <a href="#" class="view-all-notifications">Tüm Bildirimleri Gör</a>
+        </div>
+      </div>
+      <!-- Content Sectiond Bitiş -->
+    </div>
+    <!-- ? Wrapper Bitiş -->
+
+    <script src="https://kit.fontawesome.com/767955e4cb.js" crossorigin="anonymous"></script>
+    <script src="{% static 'Dashboard/js/scripts.js' %}"></script>
+  </body>
+</html>
