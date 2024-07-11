@@ -37,7 +37,7 @@
             <div class="row align-items-center">
               <div class="col-lg-2">
                 <div class="logo theme-logo">
-                  <a href="index.html"><img src="{% static 'assets/media/logo.svg' %}" alt="Logo" /></a>
+                  <a href="{% url 'index' %}"><img src="{% static 'assets/media/logo.svg' %}" alt="Logo" /></a>
                 </div>
               </div>
               <div class="col-lg-6">
@@ -46,47 +46,22 @@
                     <nav class="nav-main-wrap">
                       <ul class="theme-navigation-wrap theme-main-menu">
                         <li>
-                          <a href="index.html">Home</a>
+                          <a href="{% url 'index' %}">Anasayfa</a>
                         </li>
                         <li class="has-children">
-                          <a href="javascript:void(0)">Features</a>
-                          <ul class="dropdown sub-menu">
-                            <li>
-                              <a href="blog-category.html">Category Page</a>
-                            </li>
-                            <li class="has-children">
-                              <a href="blog.html">Blog Page</a>
-                              <ul class="dropdown sub-menu">
-                                <li>
-                                  <a href="blog.html">Blog List</a>
-                                </li>
-                                <li>
-                                  <a href="blog-grid.html">Blog Grid</a>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <a href="post-single.html">Blog Single</a>
-                            </li>
-                            <li>
-                              <a href="about.html">About Page</a>
-                            </li>
-                            <li>
-                              <a href="contact.html">Contact Us</a>
-                            </li>
-                          </ul>
+                          <a href={% url 'post-single' %}>Hakkında</a>
                         </li>
                         <li>
-                          <a href="blog-category.html">Fashion</a>
+                          <a href="{% url 'fashion' %}">Fashion</a>
                         </li>
                         <li>
-                          <a href="blog-category.html">Lifestyle</a>
+                          <a href="{% url 'lifestyle' %}">Lifestyle</a>
                         </li>
                         <li>
-                          <a href="blog-category.html">Travel</a>
+                          <a href="{% url 'travel' %}">Travel</a>
                         </li>
                         <li>
-                          <a href="contact.html">Gönderi Oluştur</a>
+                          <a href="{% url 'create_post' %}">Gönderi Oluştur</a>
                         </li>
                       </ul>
                     </nav>

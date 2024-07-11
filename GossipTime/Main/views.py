@@ -25,3 +25,5 @@ def travel(request):
 
 def post_single(request):
     return render(request, 'Main/post-single.html')
+
+

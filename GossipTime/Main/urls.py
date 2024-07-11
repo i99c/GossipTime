@@ -9,5 +9,5 @@ urlpatterns = [
     path('fashion/', fashion, name='fashion'),
     path('lifestyle/', lifestyle, name='lifestyle'),
     path('travel/', travel, name='travel'),
-    path('post_single/', post_single, name='post-single'),
+    path('post-single/', post_single, name='post-single'),
 ]
