@@ -74,6 +74,7 @@ class Dislike(models.Model):
         
 
 class Comment(models.Model):
+    post = models.ForeignKey(Post, verbose_name=("Post"), on_delete=models.CASCADE, related_name='comments')
     content = models.CharField(verbose_name=("Yorum"), max_length=512)
     user = models.ForeignKey(User, verbose_name=("Kullanıcı"), on_delete=models.CASCADE)
     create_date = models.DateTimeField(verbose_name=('Oluşturma Tarihi'), default=timezone.now)

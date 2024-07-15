@@ -30,7 +30,13 @@
             <div class="col-lg-8 single-blog-content">
               <div class="post-single-wrapper">
                 <!-- Title and Category -->
-                <h1 class="post-title">Create a New Post</h1>
+                <h1 class="post-title">
+                  {% if type == 'create' %}
+                    Create a New Post
+                  {% else %}
+                    Update a New Post
+                  {% endif %}
+                </h1>
 
                 <!-- Form to Create Content -->
                 <form method="post" enctype="multipart/form-data">

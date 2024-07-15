@@ -24,9 +24,18 @@ def travel(request):
     return render(request, 'Main/travel.html', {'travels':travel_post})
 
 def post_single(request):
-    return render(request, 'Main/post-single.html')
+    articles = Post.objects.all()  # Tüm makaleleri almak için örnek bir sorgu
+    context = {
+        'articles': articles,
+    }
+    return render(request, 'Main/post-single.html', context)
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'post-single.html', {'post': post})
+def post_detail(request, category_slug, pk):
+   
+    post = get_object_or_404(Post, category__slug=category_slug, pk=pk)
 
+    # Template'e gönderin
+    context = {
+        'post': post,
+    }
+    return render(request, 'post_detail.html', context)
