@@ -5,17 +5,19 @@ from .models import Post
 
 
 
+
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('post_list')  # Replace 'post_list' with the name of your post list view
+            return redirect('post_list')  # Your redirect URL here
     else:
         form = PostForm()
-    return render(request, 'Writer/create_post.html', {'form': form})
+    
+    return render(request, 'Writer/create_post.html', {'form': form})  # Doğru template yolunu kullanın
 
-# Create your views here.
+
 
 
 

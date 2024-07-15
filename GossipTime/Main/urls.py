@@ -10,4 +10,5 @@ urlpatterns = [
     path('lifestyle/', lifestyle, name='lifestyle'),
     path('travel/', travel, name='travel'),
     path('post-single/', post_single, name='post-single'),
+    path('post/<int:pk>/', post_detail, name='post_detail'),
 ]

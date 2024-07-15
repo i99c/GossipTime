@@ -35,3 +35,9 @@ class UserLogAdmin(admin.ModelAdmin):
     list_filter = ('created_date',)
     search_fields = ('user__username', 'user__first_name', 'user__last_name', 'action')
     readonly_fields = ('created_date',)
+
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_date', 'updated_date', 'is_published')
+    list_filter = ('is_published', 'created_date', 'updated_date')
+    search_fields = ('title', 'content')
+    readonly_fields = ('created_date', 'updated_date')
