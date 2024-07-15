@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import *
 import datetime
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
 
 def create_post(request):
     if request.method == 'POST':
@@ -33,7 +35,7 @@ def delete_post(request, post_id):
         post.is_delete = True
         post.delete_date = timezone.now()
         post.save()
-        return redirect('post:base')
+        return redirect('post_list')
 
 def post_list(request):
     posts = Post.objects.all()
@@ -42,6 +44,27 @@ def post_list(request):
 def news(request):
     return render(request, 'Writer/news.html')
 
-def news_detail(request, post_id):  # Yeni eklenen görünüm fonksiyonu
+
+
+@login_required
+def like(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    return render(request, 'Writer/news_detail.html', {'post': post})
+
+    like = post.likes.filter(user=request.user).first()
+
+    if like:
+        if like.is_delete:
+            like.is_delete = False
+            like.delete_date = None
+        else:
+            like.is_delete = True
+            like.delete_date = timezone.now()
+        like.save()
+    else:
+        like = Like.objects.create(post=post, user=request.user)
+
+    return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
+
+def fashion_list(request):
+    fashions = Post.objects.filter(category__slug='fashion')
+    return render(request, 'Main/fashion.html', {'fashions': fashions})

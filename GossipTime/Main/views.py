@@ -16,12 +16,12 @@ def fashion(request):
     return render(request, 'Main/fashion.html', {'fashions': fashion_posts})
 
 def lifestyle(request):
-    lifestyle_post = Post.objects.filter(category__name='Lifestyle').exclude(pk__isnull=True)
-    return render(request, 'Main/lifestyle.html', {'lifestyles':lifestyle_post})
+    lifestyle_posts = Post.objects.filter(category__name='Lifestyle').exclude(pk__isnull=True)
+    return render(request, 'Main/lifestyle.html', {'lifestyles': lifestyle_posts})
 
 def travel(request):
-    travel_post = Post.objects.filter(category__name='Travel').exclude(pk__isnull=True)
-    return render(request, 'Main/travel.html', {'travels':travel_post})
+    travel_posts = Post.objects.filter(category__name='Travel').exclude(pk__isnull=True)
+    return render(request, 'Main/travel.html', {'travels': travel_posts})
 
 def post_single(request):
     articles = Post.objects.all()  # Tüm makaleleri almak için örnek bir sorgu
@@ -31,11 +31,8 @@ def post_single(request):
     return render(request, 'Main/post-single.html', context)
 
 def post_detail(request, category_slug, pk):
-   
     post = get_object_or_404(Post, category__slug=category_slug, pk=pk)
-
-    # Template'e gönderin
     context = {
         'post': post,
     }
-    return render(request, 'post_detail.html', context)
+    return render(request, 'Main/post-single.html', context)

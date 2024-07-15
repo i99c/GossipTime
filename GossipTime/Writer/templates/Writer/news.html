@@ -3,97 +3,46 @@
 
 {% block content %}
   <div id="main-wrapper" class="main-wrapper">
-    <div class="tp-offcanvas-area">
-      <div class="tpoffcanvas">
-        <div class="tpoffcanvas__close-btn">
-          <button class="close-btn"><i class="icofont-close"></i></button>
-        </div>
-        <div class="tpoffcanvas__logo offcanvas-logo">
-          <a href="index.html"><img src="{% static 'assets/media/logo.svg' %}" alt="Logo" /></a>
-        </div>
-        <div class="tpoffcanvas__text offcanvas-content">
-          <div class="main-canvas-inner">
-            <div class="canvas-bar-post-list">
-              {% for article in articles %}
-                <article class="post-block-style-wrapper post-block-template-two most-read-block-list">
-                  <div class="post-block-style-inner post-block-list-style-inner">
-                    <div class="post-block-media-wrap">
-                      <a href="{% url 'post_detail' article.id %}"><img src="{{ article.image.url }}" alt="{{ article.title }}" /></a>
-                    </div>
-                    <div class="post-block-content-wrap">
-                      <div class="post-item-title">
-                        <h2 class="post-title"><a href="{% url 'post_detail' article.id %}">{{ article.title }}</a></h2>
-                      </div>
-                      <div class="post-bottom-meta-list">
-                        <div class="post-meta-author-box">
-                          <a href="javascript:void(0)">{{ article.author }}</a>
-                        </div>
-                        <div class="post-meta-date-box">{{ article.publish_date|date:'M d' }}</div>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              {% endfor %}
-            </div>
-            <div class="panel-nav-social">
-              <a href="#"><i class="icofont-facebook"></i></a>
-              <a href="#"><i class="icofont-twitter"></i></a>
-              <a href="#"><i class="icofont-instagram"></i></a>
-              <a href="#"><i class="icofont-linkedin"></i></a>
-              <a href="#"><i class="icofont-youtube"></i></a>
-            </div>
-          </div>
-          <div class="mobile-canvas-content">
-            <div class="canvas-nav-menu-wrapper"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="body-overlay"></div>
-    <!-- tp-offcanvus-area-end -->
     <div class="post-single-area mt-60">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 single-blog-content">
             <div class="post-single-wrapper">
               <div class="post-cat-box">
-                <a href="blog-category.html">Politics</a>
+                <a href="javascript:void(0)">{{ post.category.name }}</a>
               </div>
-              <h1 class="post-title">Georgia's voting law will make elections easier than ever</h1>
+              <h1 class="post-title">{{ post.title }}</h1>
               <div class="blog-small-excerpt-box">
-                <p>Tuesday's primary is the first big test of the legislation, which was opposed by voting rights groups and Democrats.</p>
+                <p>{{ post.excerpt }}</p>
               </div>
               <div class="post-bottom-meta-list post-meta-wrapper">
                 <div class="post-left-details-meta">
                   <div class="post-meta-author-box">
-                    By <a href="#">Laura Tanenbaum</a>
+                    By <a href="#">{{ post.author }}</a>
                   </div>
-                  <div class="post-meta-date-box">Sep 22</div>
+                  <div class="post-meta-date-box">{{ post.publish_date|date:'M d' }}</div>
                 </div>
                 <div class="post-meta-social">
                   <i class="fa-regular fa-thumbs-up"></i>
                   <span>0</span>
-
                   <i class="fa-regular fa-thumbs-down"></i>
                   <span>0</span>
                 </div>
               </div>
               <div class="post-featured-image">
-                <img src="assets/media/red-woman.jpg" alt="Post Image" />
+                <img src="{{ post.image.url }}" alt="Post Image" />
               </div>
             </div>
             <div class="theme-blog-details">
-              <p>Struggling to sell one multi-million dollar home currently on the market won't stop actress and singer Jennifer Lopez from expanding her property collection. Lopez has reportedly added to her real estate holdings an eight-plus acre estate in Bel-Air anchored by a multi-level mansion.</p>
-              <p>The property, complete with a 30-seat screening room, a 100-seat amphitheater and a swimming pond with sandy beach and outdoor shower, was asking about $40 million, but J. Lo managed to make it hers for $28 million. As the Bronx native acquires a new home in California, she is trying to sell a gated compound.</p>
-
+              <p>{{ post.content }}</p>
               <div class="author-bio-wrap">
                 <div class="author-thumbnail">
-                  <a href="#"><img src="assets/media/model.jpg" alt="Author" /></a>
+                  <a href="#"><img src="{{ post.author.image.url }}" alt="Author" /></a>
                 </div>
                 <div class="author-body">
-                  <span class="subtitle">Sr. UX Designer</span>
-                  <h5 class="title">Kristin Watson</h5>
-                  <p class="author-inner-text">My favorite compliment is being told that I look like my mom. Seeing myself in her image, like this daughter up top, makes me so proud of how far I’ve come.</p>
+                  <span class="subtitle">{{ post.author.position }}</span>
+                  <h5 class="title">{{ post.author.name }}</h5>
+                  <p class="author-inner-text">{{ post.author.bio }}</p>
                   <div class="social-share-author">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -102,63 +51,11 @@
                   </div>
                 </div>
               </div>
-              <div class="theme-comment-area">
-                <!-- Start Comment Respond -->
-                <div class="comment-respond">
-                  <h4 class="title">Post a comment</h4>
-                  <form action="#">
-                    <p class="comment-notes">
-                      <span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span>
-                    </p>
-                    <div class="row">
-                      <div class="col-lg-4 col-md-12">
-                        <div class="form-group">
-                          <label for="name">Your Name</label>
-                          <input id="name" type="text" />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-12">
-                        <div class="form-group">
-                          <label for="email">Your Email</label>
-                          <input id="email" type="email" />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-12">
-                        <div class="form-group">
-                          <label for="website">Your Website</label>
-                          <input id="website" type="text" />
-                        </div>
-                      </div>
-                      <div class="col-lg-12">
-                        <div class="form-group">
-                          <label for="message">Leave a Reply</label>
-                          <textarea id="message" name="message"></textarea>
-                        </div>
-                      </div>
-                      <div class="col-lg-12">
-                        <p class="comment-form-cookies-consent">
-                          <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" />
-                          <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label>
-                        </p>
-                      </div>
-                      <div class="col-lg-12">
-                        <div class="form-submit">
-                          <input name="submit" type="submit" id="submit" class="theme-submit-btn" value="Post Comment" />
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <br />
-                <br />
-                <!-- End Comment Respond -->
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <span class="scrolltotop"><i class="ri-arrow-up-s-line"></i></span>
   </div>
 {% endblock %}
