@@ -53,7 +53,11 @@ def like(request, post_id):
     like, created = Like.objects.get_or_create(user=request.user, post=post)
     if not created:
         like.delete()
-    return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
+    else : 
+        dislike=Dislike.objects.filter(user=request.user, post=post)
+        if dislike:
+            dislike.delete()
+    return redirect('post-detail', slug=post.category.slug, id=post.pk)
 
 @login_required
 def dislike(request, post_id):
@@ -61,12 +65,12 @@ def dislike(request, post_id):
     dislike, created = Dislike.objects.get_or_create(user=request.user, post=post)
     if not created:
         dislike.delete()
-    return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
+    else : 
+        like=Like.objects.filter(user=request.user, post=post)
+        if like:
+            like.delete()
+    return redirect('post-detail', slug=post.category.slug, id=post.pk)
 
 def fashion_list(request):
     fashions = Post.objects.filter(category__slug='fashion')
     return render(request, 'Main/fashion.html', {'fashions': fashions})
-
-def post_detail(request, category_slug, pk):
-    post = get_object_or_404(Post, category__slug=category_slug, pk=pk)
-    return render(request, 'Main/post_detail.html', {'post': post})

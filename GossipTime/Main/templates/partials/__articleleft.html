@@ -1,19 +1,23 @@
 {% load static %}
-<article class="post-block-style-wrapper post-block-template-one post-block-template-small">
-    <div class="post-block-style-inner">
-    <div class="post-block-media-wrap">
-        <a href="post-single.html"><img src="assets/media/team-mate.jpg" alt="Post title" /></a>
-    </div>
-    <div class="post-block-content-wrap">
-        <div class="post-item-title">
-        <h2 class="post-title"><a href="post-single.html">Beşinci defa kodlanan web sitesi</a></h2>
+{% for post in posts %}
+    <article class="post-block-style-wrapper post-block-template-one post-block-template-small">
+        <div class="post-block-style-inner">
+            <div class="post-block-media-wrap">
+                <a href="{% url 'post-detail' post.slug post.id %}">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+                </a>  <!-- Post'un resmi -->
+            </div>
+            <div class="post-block-content-wrap">
+                <div class="post-item-title">
+                    <h2 class="post-title"><a href="{% url 'post-detail' post.slug post.id %}">{{ post.title }}</a></h2>  <!-- Post'un başlığı -->
+                </div>
+                <div class="post-bottom-meta-list">
+                    <div class="post-meta-author-box">
+                        By <a href="javascript:void(0)">{{ post.author }}</a>  <!-- Post'un yazarı -->
+                    </div>
+                    <div class="post-meta-date-box">{{ post.created_date|date:"d F Y" }}</div>  <!-- Post'un oluşturulma tarihi -->
+                </div>
+            </div>
         </div>
-        <div class="post-bottom-meta-list">
-        <div class="post-meta-author-box">
-            By <a href="javascript:void(0)">Kadir Tan</a>
-        </div>
-        <div class="post-meta-date-box">10 Temmuz</div>
-        </div>
-    </div>
-    </div>
-</article>
+    </article>
+    {% endfor %}

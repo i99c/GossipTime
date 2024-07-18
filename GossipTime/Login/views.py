@@ -1,18 +1,17 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
-from .models import *
+from .models import Writer, Reader
 from django.contrib import messages
 from django.contrib.auth.models import User
 
 def login(request):
     if request.method == 'POST':
-        login_info = request.POST.get('username')
+        login_info = request.POST.get('username_or_email')
         password = request.POST.get('password')
         
         if not login_info or not password:
             messages.error(request, 'Kullanıcı adı ve şifre gereklidir.')
-            return render(request, 'main/base.html')
+            return render(request, 'Login/login.html')
         
         try:
             user_mail = User.objects.get(email=login_info)
@@ -21,20 +20,26 @@ def login(request):
             user = authenticate(request, username=login_info, password=password)
         
         if user is not None:
+            print(user)
             try:
                 writer = Writer.objects.get(user=user)
                 auth_login(request, user)
-                return HttpResponse(f'<h1>{writer.user.first_name} {writer.user.last_name}</h1>')
+                return redirect("index")
             except Writer.DoesNotExist:
                 try: 
                     reader = Reader.objects.get(user=user)
                     auth_login(request, user)
-                    return HttpResponse(f'<h1>{reader.user.first_name} {reader.user.last_name}</h1>')
+                    return redirect("index")
                 except Reader.DoesNotExist:
+                    print('Kullanıcı mevcut ancak Okur veya Yazar değil.')
                     messages.error(request, 'Kullanıcı mevcut ancak Okur veya Yazar değil.')
         else:
             messages.error(request, 'Kullanıcı adı veya şifre yanlış!')
-    return render(request, 'login/login.html')
+            print('Kullanıcı adı veya şifre yanlış!')
+        # Başarısız giriş denemesi için render işlemi burada
+        return render(request, 'Login/login.html', {'messages':messages})
+    else:
+        return render(request, 'Login/login.html', {'messages':messages})
 
 def register_view(request):
     if request.method == 'POST':

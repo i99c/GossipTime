@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import *
+from Writer.views import *
 
 urlpatterns = [
     path('', index, name='index'),
@@ -9,9 +10,5 @@ urlpatterns = [
     path('lifestyle/', lifestyle, name='lifestyle'),
     path('travel/', travel, name='travel'),
     path('post-single/', post_single, name='post-single'),
-    path('fashion/<int:id>/', fashion_detail, name='fashion-detail'),
-    path('lifestyle/<int:id>/', lifestyle_detail, name='lifestyle-detail'),
-    path('travel/<int:id>/', travel_detail, name='travel-detail'),
- 
-
- ]
+    path('<slug:slug>/<int:id>/', post_detail, name='post-detail'),
+]

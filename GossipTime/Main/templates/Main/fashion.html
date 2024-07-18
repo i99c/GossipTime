@@ -13,7 +13,7 @@
                   <div class="post-block-style-inner post-block-list-style-inner">
                     <div class="post-block-content-wrap">
                       <div class="post-item-title">
-                        <h2 class="post-title"><a href="{% url 'fashion-detail' fashion.id %}">{{ fashion.title }}</a></h2>
+                        <h2 class="post-title"><a href="{% url 'post-detail' 'fashion' fashion.id %}">{{ fashion.title }}</a></h2>
                       </div>
                       <div class="post-excerpt-box">
                         <p>{{ fashion.content|safe|truncatewords:30 }}</p>
@@ -27,7 +27,7 @@
                     </div>
                     {% if fashion.image %}
                       <div class="post-block-media-wrap">
-                        <a href="{% url 'fashion-detail' fashion.id %}"><img src="{{ fashion.image.url }}" alt="{{ fashion.title }}" /></a>
+                        <a href="{% url 'post-detail' 'fashion' fashion.id %}"><img src="{{ fashion.image.url }}" alt="{{ fashion.title }}" /></a>
                       </div>
                     {% endif %}
                   </div>

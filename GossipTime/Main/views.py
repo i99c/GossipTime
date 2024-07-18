@@ -3,7 +3,8 @@ from .models import *
 from Writer.models import Post
 
 def index(request):
-    return render(request, 'Main/index.html')
+    post = Post.objects.all().order_by('-created_date')
+    return render(request, 'Main/index.html', {'post': post})
 
 def blog(request):
     return render(request, 'Main/blog.html')
@@ -30,14 +31,7 @@ def post_single(request):
     }
     return render(request, 'Main/post-single.html', context)
 
-def fashion_detail(request, id):
-    post = get_object_or_404(Post, id=id, category__name='Fashion')
-    return render(request, 'Main/post-single.html', {'post': post})
-
-def lifestyle_detail(request, id):
-    post = get_object_or_404(Post, id=id, category__name='Lifestyle')
-    return render(request, 'Main/post-single.html', {'post': post})
-
-def travel_detail(request, id):
-    post = get_object_or_404(Post, id=id, category__name='Travel')
+def post_detail(request, slug, id):
+    category=get_object_or_404(Category, slug=slug)
+    post = get_object_or_404(Post, id=id, category=category)
     return render(request, 'Main/post-single.html', {'post': post})

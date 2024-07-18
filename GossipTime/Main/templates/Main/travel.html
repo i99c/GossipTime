@@ -13,7 +13,7 @@
                   <div class="post-block-style-inner post-block-list-style-inner">
                     <div class="post-block-content-wrap">
                       <div class="post-item-title">
-                        <h2 class="post-title"><a href="{% url 'travel-detail' travel.id %}">{{ travel.title }}</a></h2>
+                        <h2 class="post-title"><a href="{% url 'post-detail' 'travel' travel.id %}">{{ travel.title }}</a></h2>
                       </div>
                       <div class="post-excerpt-box">
                         <p>{{ travel.content|safe|truncatewords:30 }}</p>
@@ -27,7 +27,7 @@
                     </div>
                     {% if travel.image %}
                       <div class="post-block-media-wrap">
-                        <a href="{% url 'travel-detail' travel.id %}"><img src="{{ travel.image.url }}" alt="{{ travel.title }}" /></a>
+                        <a href="{% url 'post-detail' 'travel' travel.id %}"><img src="{{ travel.image.url }}" alt="{{ travel.title }}" /></a>
                       </div>
                     {% endif %}
                   </div>

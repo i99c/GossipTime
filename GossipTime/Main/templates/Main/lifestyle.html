@@ -13,7 +13,7 @@
                   <div class="post-block-style-inner post-block-list-style-inner">
                     <div class="post-block-content-wrap">
                       <div class="post-item-title">
-                        <h2 class="post-title"><a href="{% url 'lifestyle-detail' lifestyle.id %}">{{ lifestyle.title }}</a></h2>
+                        <h2 class="post-title"><a href="{% url 'post-detail' 'lifesytle' lifestyle.id %}">{{ lifestyle.title }}</a></h2>
                       </div>
                       <div class="post-excerpt-box">
                         <p>{{ lifestyle.content|safe|truncatewords:30 }}</p>
@@ -27,7 +27,7 @@
                     </div>
                     {% if lifestyle.image %}
                       <div class="post-block-media-wrap">
-                        <a href="{% url 'lifestyle-detail' lifestyle.id %}"><img src="{{ lifestyle.image.url }}" alt="{{ lifestyle.title }}" /></a>
+                        <a href="{% url 'post-detail' 'lifestyle' lifestyle.id %}"><img src="{{ lifestyle.image.url }}" alt="{{ lifestyle.title }}" /></a>
                       </div>
                     {% endif %}
                   </div>

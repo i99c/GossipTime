@@ -11,6 +11,5 @@ urlpatterns = [
     path('dislike/<str:post_id>/', dislike, name='dislike'),   
     path('', post_list, name='post_list'),  
     path('news/', news, name='Writer/news'),
-    path('<slug:category_slug>/<int:pk>/', post_detail, name='post_detail'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
