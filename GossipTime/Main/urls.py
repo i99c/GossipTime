@@ -9,7 +9,9 @@ urlpatterns = [
     path('lifestyle/', lifestyle, name='lifestyle'),
     path('travel/', travel, name='travel'),
     path('post-single/', post_single, name='post-single'),
-    path('<slug:category_slug>/<int:pk>/', post_detail, name='post_detail'),
-    path('<slug:category_slug>/<int:pk>/', post_detail, name='post_detail'),
+    path('fashion/<int:id>/', fashion_detail, name='fashion-detail'),
+    path('lifestyle/<int:id>/', lifestyle_detail, name='lifestyle-detail'),
+    path('travel/<int:id>/', travel_detail, name='travel-detail'),
+ 
 
  ]

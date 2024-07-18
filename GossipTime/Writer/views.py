@@ -9,17 +9,18 @@ def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('post_list')
+            post = form.save()
+            return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
     else:
         form = PostForm()
     
-    return render(request, 'Writer/create_post.html', {'form': form, 'type': 'create'})
+    return render(request, 'Writer/create_post.html', {'form': form})
+
 
 def update_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES, instance=post)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('post_list')
@@ -64,7 +65,29 @@ def like(request, post_id):
         like = Like.objects.create(post=post, user=request.user)
 
     return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
+@login_required
+def dislike(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    dislike = post.dislikes.filter(user=request.user).first()
+
+    if dislike:
+        if dislike.is_delete:
+            dislike.is_delete = False
+            dislike.delete_date = None
+        else:
+            dislike.is_delete = True
+            dislike.delete_date = timezone.now()
+        dislike.save()
+    else:
+        dislike = Dislike.objects.create(post=post, user=request.user)
+
+    return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
 
 def fashion_list(request):
     fashions = Post.objects.filter(category__slug='fashion')
     return render(request, 'Main/fashion.html', {'fashions': fashions})
+
+def post_detail(request, category_slug, pk):
+    post = get_object_or_404(Post, category__slug=category_slug, pk=pk)
+    return render(request, 'Main/post_detail.html', {'post': post})

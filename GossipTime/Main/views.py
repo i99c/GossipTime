@@ -12,15 +12,15 @@ def blog_category(request):
     return render(request, 'Main/blog-category.html')
 
 def fashion(request):
-    fashion_posts = Post.objects.filter(category__name='Fashion').exclude(pk__isnull=True)
+    fashion_posts = Post.objects.filter(category__name='Fashion')
     return render(request, 'Main/fashion.html', {'fashions': fashion_posts})
 
 def lifestyle(request):
-    lifestyle_posts = Post.objects.filter(category__name='Lifestyle').exclude(pk__isnull=True)
+    lifestyle_posts = Post.objects.filter(category__name='Lifestyle')
     return render(request, 'Main/lifestyle.html', {'lifestyles': lifestyle_posts})
 
 def travel(request):
-    travel_posts = Post.objects.filter(category__name='Travel').exclude(pk__isnull=True)
+    travel_posts = Post.objects.filter(category__name='Travel')
     return render(request, 'Main/travel.html', {'travels': travel_posts})
 
 def post_single(request):
@@ -30,9 +30,14 @@ def post_single(request):
     }
     return render(request, 'Main/post-single.html', context)
 
-def post_detail(request, category_slug, pk):
-    post = get_object_or_404(Post, category__slug=category_slug, pk=pk)
-    context = {
-        'post': post,
-    }
-    return render(request, 'Main/post-single.html', context)
+def fashion_detail(request, id):
+    post = get_object_or_404(Post, id=id, category__name='Fashion')
+    return render(request, 'Main/post-single.html', {'post': post})
+
+def lifestyle_detail(request, id):
+    post = get_object_or_404(Post, id=id, category__name='Lifestyle')
+    return render(request, 'Main/post-single.html', {'post': post})
+
+def travel_detail(request, id):
+    post = get_object_or_404(Post, id=id, category__name='Travel')
+    return render(request, 'Main/post-single.html', {'post': post})

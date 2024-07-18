@@ -10,7 +10,7 @@
             <div class="post-cat-box">
               <a href="javascript:void(0)">{{ post.category.name }}</a>
             </div>
-            <h1 class="card-title">{{ post.title }}</h1>
+            <h1 style="color:#404040 ;" class="card-title">{{ post.title }}</h1>
             <div class="blog-small-excerpt-box">
               <p>{{ post.excerpt }}</p>
             </div>
@@ -24,17 +24,21 @@
               <div class="post-meta-social">
                 <form method="post" action="{% url 'like' post.id %}" id="like-form">
                   {% csrf_token %}
-                  <button type="submit" class="like-btn">
-                    <i class="fa-regular fa-thumbs-up"></i>
-                    <span>{{ post.likes.count }}</span>
-                  </button>
+
+                  <i class="fa-regular fa-thumbs-up"></i>
+                  <span>{{ post.likes.count }}</span>
+                </form>
+                <form method="post" action="{% url 'dislike' post.id %}" id="dislike-form">
+                  {% csrf_token %}
+
+                  <i class="fa-solid fa-thumbs-down"></i> <span>{{ post.dislikes.count }}</span>
                 </form>
               </div>
             </div>
             <div class="post-featured-image">
               <img src="{{ post.image.url }}" alt="Post Image" class="img-fluid" />
             </div>
-            <p>{{ post.content }}</p>
+            <p style="color: #A6A6A6;">{{ post.content }}</p>
           </div>
         </div>
         <div class="author-bio-wrap">

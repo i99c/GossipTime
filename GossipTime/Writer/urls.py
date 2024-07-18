@@ -4,10 +4,12 @@ from django.conf.urls.static import static
 from .views import *
 
 urlpatterns = [
-    path('create/',create_post, name='create_post'),   
-    path('delete/<str:post_id>/',delete_post, name='delete'),   
-    path('update/<str:post_id>',update_post, name='update'),   
-    path('like/<str:post_id>',like, name='like'),   
+    path('create/', create_post, name='create_post'),   
+    path('delete/<str:post_id>/', delete_post, name='delete'),   
+    path('update/<str:post_id>/', update_post, name='update'),   
+    path('like/<str:post_id>/', like, name='like'),   
+    path('dislike/<str:post_id>/', dislike, name='dislike'),   
     path('', post_list, name='post_list'),  
-    path('news/', news, name='Writer/news')
+    path('news/', news, name='Writer/news'),
+    path('<slug:category_slug>/<int:pk>/', post_detail, name='post_detail'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
