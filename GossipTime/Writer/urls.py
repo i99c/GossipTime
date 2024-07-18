@@ -13,3 +13,4 @@ urlpatterns = [
     path('news/', news, name='Writer/news'),
     path('<slug:category_slug>/<int:pk>/', post_detail, name='post_detail'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

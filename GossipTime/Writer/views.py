@@ -50,38 +50,17 @@ def news(request):
 @login_required
 def like(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-
-    like = post.likes.filter(user=request.user).first()
-
-    if like:
-        if like.is_delete:
-            like.is_delete = False
-            like.delete_date = None
-        else:
-            like.is_delete = True
-            like.delete_date = timezone.now()
-        like.save()
-    else:
-        like = Like.objects.create(post=post, user=request.user)
-
+    like, created = Like.objects.get_or_create(user=request.user, post=post)
+    if not created:
+        like.delete()
     return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
+
 @login_required
 def dislike(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-
-    dislike = post.dislikes.filter(user=request.user).first()
-
-    if dislike:
-        if dislike.is_delete:
-            dislike.is_delete = False
-            dislike.delete_date = None
-        else:
-            dislike.is_delete = True
-            dislike.delete_date = timezone.now()
-        dislike.save()
-    else:
-        dislike = Dislike.objects.create(post=post, user=request.user)
-
+    dislike, created = Dislike.objects.get_or_create(user=request.user, post=post)
+    if not created:
+        dislike.delete()
     return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
 
 def fashion_list(request):
