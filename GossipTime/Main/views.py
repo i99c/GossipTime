@@ -4,7 +4,9 @@ from Writer.models import Post
 
 def index(request):
     latest_post = Post.objects.all().order_by('-created_date').first()
-    return render(request, 'Main/index.html', {'latest_post': latest_post})
+    second_latest_post = Post.objects.all().order_by('-created_date')[1] if Post.objects.count() > 1 else None
+    return render(request, 'Main/index.html', {'latest_post': latest_post, 'second_latest_post': second_latest_post})
+
 
 def blog(request):
     return render(request, 'Main/blog.html')

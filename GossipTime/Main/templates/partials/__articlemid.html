@@ -1,19 +1,25 @@
 {% load static %}
-<article class="post-block-style-wrapper post-block-template-one post-block-template-small">
-    <div class="post-block-style-inner">
-    <div class="post-block-media-wrap">
-        <a href="post-single.html"><img src="assets/media/team-mate.jpg" alt="Post title" /></a>
-    </div>
-    <div class="post-block-content-wrap">
-        <div class="post-item-title">
-        <h2 class="post-title"><a href="post-single.html">Beşinci defa kodlanan web sitesi</a></h2>
+{% if second_latest_post %}
+    <article class="post-block-style-wrapper post-block-template-one post-block-template-small">
+        <div class="post-block-style-inner">
+            <div class="post-block-media-wrap">
+                <a href="{% url 'post-detail' second_latest_post.category.slug second_latest_post.id %}">
+                    <img src="{{ second_latest_post.image.url }}" alt="{{ second_latest_post.title }}" />
+                </a>
+            </div>
+            <div class="post-block-content-wrap">
+                <div class="post-item-title">
+                    <h2 class="post-title"><a href="{% url 'post-detail' second_latest_post.category.slug second_latest_post.id %}">{{ second_latest_post.title }}</a></h2>
+                </div>
+                <div class="post-bottom-meta-list">
+                    <div class="post-meta-author-box">
+                        By <a href="javascript:void(0)">{{ second_latest_post.writer }}</a>
+                    </div>
+                    <div class="post-meta-date-box">{{ second_latest_post.created_date|date:"d F Y" }}</div>
+                </div>
+            </div>
         </div>
-        <div class="post-bottom-meta-list">
-        <div class="post-meta-author-box">
-            By <a href="javascript:void(0)">Kadir Tan</a>
-        </div>
-        <div class="post-meta-date-box">10 Temmuz</div>
-        </div>
-    </div>
-    </div>
-</article>
+    </article>
+{% else %}
+    <p>İkinci en yeni gönderi bulunamadı.</p>
+{% endif %}
