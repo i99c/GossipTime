@@ -1,22 +1,28 @@
 {% load static %}
+{% if most_liked_post %}
 <article class="post-block-style-wrapper post-block-template-two">
     <div class="post-block-style-inner post-block-list-style-inner">
         <div class="post-block-media-wrap">
-        <a href="post-single.html"><img src="assets/media/yellow-diva.jpg" alt="Post title" /></a>
+            <a href="{% url 'post-detail' most_liked_post.category.slug most_liked_post.id %}">
+                <img src="{{ most_liked_post.image.url }}" alt="{{ most_liked_post.title }}" />
+            </a>
         </div>
         <div class="post-block-content-wrap">
-        <div class="post-category-box">
-            <a class="post-cat-item" href="blog-category.html">Politics</a>
-        </div>
-        <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">Corporations Are People, Too</a></h2>
-        </div>
-        <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-            <a href="javascript:void(0)">Alisson</a>
+            <div class="post-category-box">
+                <a class="post-cat-item" href="{% url 'blog-category' most_liked_post.category.slug %}">{{ most_liked_post.category.name }}</a>
             </div>
-            <div class="post-meta-date-box">Sep 22</div>
-        </div>
+            <div class="post-item-title">
+                <h2 class="post-title"><a href="{% url 'post-detail' most_liked_post.category.slug most_liked_post.id %}">{{ most_liked_post.title }}</a></h2>
+            </div>
+            <div class="post-bottom-meta-list">
+                <div class="post-meta-author-box">
+                    <a href="javascript:void(0)">{{ most_liked_post.writer }}</a>
+                </div>
+                <div class="post-meta-date-box">{{ most_liked_post.created_date|date:"d F Y" }}</div>
+            </div>
         </div>
     </div>
-    </article>
+</article>
+{% else %}
+<p>No popular posts available</p>
+{% endif %}

@@ -23,7 +23,9 @@ class Post(models.Model):
     updated_date = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     is_delete = models.BooleanField(verbose_name=('Silindi?'), default=False)
-    delete_date = models.DateTimeField(verbose_name=('Silinme Tarihi'), blank=True, null=True) 
+    delete_date = models.DateTimeField(verbose_name=('Silinme Tarihi'), blank=True, null=True)
+    
+
 
     def save(self, *args, **kwargs):
         if not self.writer_id:
@@ -32,8 +34,14 @@ class Post(models.Model):
             self.writer = default_writer
         super().save(*args, **kwargs)
 
+    
     def __str__(self):
         return self.title
+    
+    @property
+    def like_count(self):
+        return self.likes.count()
+    
 
 class Like(models.Model):
     post = models.ForeignKey(Post, verbose_name=('Post'), on_delete=models.CASCADE, related_name='likes')
