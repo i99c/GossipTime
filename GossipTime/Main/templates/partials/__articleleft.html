@@ -1,23 +1,23 @@
 {% load static %}
-{% for post in posts %}
+{% if latest_post %}
     <article class="post-block-style-wrapper post-block-template-one post-block-template-small">
         <div class="post-block-style-inner">
             <div class="post-block-media-wrap">
-                <a href="{% url 'post-detail' post.slug post.id %}">
-                    <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+                <a href="{% url 'post-detail' latest_post.category.slug latest_post.id %}">
+                    <img src="{{ latest_post.image.url }}" alt="{{ latest_post.title }}" />
                 </a>  <!-- Post'un resmi -->
             </div>
             <div class="post-block-content-wrap">
                 <div class="post-item-title">
-                    <h2 class="post-title"><a href="{% url 'post-detail' post.slug post.id %}">{{ post.title }}</a></h2>  <!-- Post'un başlığı -->
+                    <h2 class="post-title"><a href="{% url 'post-detail' latest_post.category.slug latest_post.id %}">{{ latest_post.title }}</a></h2>  <!-- Post'un başlığı -->
                 </div>
                 <div class="post-bottom-meta-list">
                     <div class="post-meta-author-box">
-                        By <a href="javascript:void(0)">{{ post.author }}</a>  <!-- Post'un yazarı -->
+                        By <a href="javascript:void(0)">{{ latest_post.writer }}</a>  <!-- Post'un yazarı -->
                     </div>
-                    <div class="post-meta-date-box">{{ post.created_date|date:"d F Y" }}</div>  <!-- Post'un oluşturulma tarihi -->
+                    <div class="post-meta-date-box">{{ latest_post.created_date|date:"d F Y" }}</div>  <!-- Post'un oluşturulma tarihi -->
                 </div>
             </div>
         </div>
     </article>
-    {% endfor %}
+{% endif %}

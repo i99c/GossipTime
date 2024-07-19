@@ -3,8 +3,8 @@ from .models import *
 from Writer.models import Post
 
 def index(request):
-    post = Post.objects.all().order_by('-created_date')
-    return render(request, 'Main/index.html', {'post': post})
+    latest_post = Post.objects.all().order_by('-created_date').first()
+    return render(request, 'Main/index.html', {'latest_post': latest_post})
 
 def blog(request):
     return render(request, 'Main/blog.html')
