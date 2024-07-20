@@ -10,12 +10,10 @@ def create_post(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save()
-            return redirect('post_detail', category_slug=post.category.slug, pk=post.pk)
+            return redirect('post-detail', slug=post.category.slug, id=post.id)
     else:
         form = PostForm()
-    
     return render(request, 'Writer/create_post.html', {'form': form})
-
 
 def update_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)

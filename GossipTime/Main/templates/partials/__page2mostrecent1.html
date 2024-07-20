@@ -1,21 +1,44 @@
 <article class="post-block-style-wrapper post-block-template-one post-block-template-medium">
     <div class="post-block-style-inner">
-    <div class="post-block-media-wrap">
-        <a href="post-single.html"><img src="assets/media/cafe.jpg" alt="Post title" /></a>
-    </div>
-    <div class="post-block-content-wrap">
-        <div class="post-item-title">
-        <h2 class="post-title"><a href="post-single.html">The Complicity of the Textbooks</a></h2>
+        <div class="post-block-media-wrap">
+            {% if post and post.image %}
+                <a href="{% url 'post-detail' post.category.slug post.id %}">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+                </a>
+            {% else %}
+                <img src="assets/media/cafe.jpg" alt="Post title" />
+            {% endif %}
         </div>
-        <div class="post-excerpt-box">
-        <p>In Teaching White Supremacy, Donald Yacovone traces how the writing</p>
+        <div class="post-block-content-wrap">
+            <div class="post-item-title">
+                {% if post %}
+                    <h2 class="post-title">
+                        <a href="{% url 'post-detail' post.category.slug post.id %}">{{ post.title }}</a>
+                    </h2>
+                {% else %}
+                    <h2 class="post-title">
+                        <a href="javascript:void(0)">No Post Available</a>
+                    </h2>
+                {% endif %}
+            </div>
+            <div class="post-excerpt-box">
+                {% if post %}
+                    <p>{{ post.content|truncatewords:30 }}</p>
+                {% else %}
+                    <p>No content available.</p>
+                {% endif %}
+            </div>
+            <div class="post-bottom-meta-list">
+                {% if post %}
+                    <div class="post-meta-author-box">
+                        By <a href="javascript:void(0)">{{ post.writer }}</a>
+                    </div>
+                    <div class="post-meta-date-box">{{ post.created_date|date:"d F Y" }}</div>
+                {% else %}
+                    <div class="post-meta-author-box">No Author</div>
+                    <div class="post-meta-date-box">No Date</div>
+                {% endif %}
+            </div>
         </div>
-        <div class="post-bottom-meta-list">
-        <div class="post-meta-author-box">
-            By <a href="javascript:void(0)">Laura Tanenbaum</a>
-        </div>
-        <div class="post-meta-date-box">Sep 22</div>
-        </div>
-    </div>
     </div>
 </article>

@@ -14,7 +14,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    writer = models.ForeignKey(Writer, verbose_name="Yazar", on_delete=models.CASCADE, related_name='posts', null=True, blank=True)
+    writer = models.ForeignKey('Writer', verbose_name="Yazar", on_delete=models.CASCADE, related_name='posts', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     content = RichTextField()
     is_published = models.BooleanField(default=False)
@@ -24,24 +24,20 @@ class Post(models.Model):
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     is_delete = models.BooleanField(verbose_name=('Silindi?'), default=False)
     delete_date = models.DateTimeField(verbose_name=('Silinme Tarihi'), blank=True, null=True)
-    
+    view_count = models.PositiveIntegerField(default=0)
 
-
-    def save(self, *args, **kwargs):
-        if not self.writer_id:
-            # Varsayılan yazarı burada belirleyin veya geçici olarak bir yazar belirleyin
-            default_writer = Writer.objects.first()  # veya başka bir yazar seçme yöntemi
-            self.writer = default_writer
-        super().save(*args, **kwargs)
-
-    
     def __str__(self):
         return self.title
-    
+
     @property
     def like_count(self):
         return self.likes.count()
+
+class Writer(models.Model):
+    name = models.CharField(max_length=200)
     
+    def __str__(self):
+        return self.name
 
 class Like(models.Model):
     post = models.ForeignKey(Post, verbose_name=('Post'), on_delete=models.CASCADE, related_name='likes')
@@ -80,7 +76,6 @@ class Dislike(models.Model):
             return f"{self.user.first_name} {self.user.last_name} - {self.post.title}"
         else:
             return f"{self.user.username} - {self.post.title}"
-        
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, verbose_name=("Post"), on_delete=models.CASCADE, related_name='comments')
@@ -101,4 +96,3 @@ class Comment(models.Model):
             return f"{self.user.first_name} {self.user.last_name} - {self.content[:50]}"
         else:
             return f"{self.user.username} - {self.content[:50]}"
-        

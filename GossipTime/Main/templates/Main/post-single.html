@@ -10,14 +10,18 @@
             <div class="post-cat-box">
               <a href="javascript:void(0)">{{ post.category.name }}</a>
             </div>
-            <h1 style="color:#404040 ;" class="card-title">{{ post.title }}</h1>
+            <h1 class="card-title">{{ post.title }}</h1>
             <div class="blog-small-excerpt-box">
               <p>{{ post.excerpt }}</p>
             </div>
             <div class="post-bottom-meta-list post-meta-wrapper">
               <div class="post-left-details-meta">
                 <div class="post-meta-author-box">
-                  By <a href="#">{{ post.author }}</a>
+                  {% if post.writer %}
+                    By <a href="#">{{ post.writer.name }}</a>
+                  {% else %}
+                    No author
+                  {% endif %}
                 </div>
                 <div class="post-meta-date-box">{{ post.publish_date|date:'M d' }}</div>
               </div>
@@ -42,17 +46,18 @@
             <div class="post-featured-image">
               <img src="{{ post.image.url }}" alt="Post Image" class="img-fluid" />
             </div>
+            <!-- Renk ayarlarını burada yapalım -->
             <p style="color: #A6A6A6;">{{ post.content }}</p>
           </div>
         </div>
         <div class="author-bio-wrap">
           <div class="author-thumbnail">
-            <a href="#"><img src="{{ post.author.image.url }}" alt="Author" class="img-fluid" /></a>
+            <a href="#"><img src="{{ post.writer.image.url }}" alt="Author" class="img-fluid" /></a>
           </div>
           <div class="author-body">
-            <span class="subtitle">{{ post.author.position }}</span>
-            <h5 class="title">{{ post.author.name }}</h5>
-            <p class="author-inner-text">{{ post.author.bio }}</p>
+            <span class="subtitle">{{ post.writer.position }}</span>
+            <h5 class="title">{{ post.writer.name }}</h5>
+            <p class="author-inner-text">{{ post.writer.bio }}</p>
             <div class="social-share-author">
               <a href="#"><i class="fab fa-facebook-f"></i></a>
               <a href="#"><i class="fab fa-instagram"></i></a>
