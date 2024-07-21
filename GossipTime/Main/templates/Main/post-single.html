@@ -10,7 +10,7 @@
             <div class="post-cat-box">
               <a href="javascript:void(0)">{{ post.category.name }}</a>
             </div>
-            <h1 class="card-title">{{ post.title }}</h1>
+            <h1 style="color:#262626 ;" class="card-title">{{ post.title }}</h1>
             <div class="blog-small-excerpt-box">
               <p>{{ post.excerpt }}</p>
             </div>
@@ -18,7 +18,7 @@
               <div class="post-left-details-meta">
                 <div class="post-meta-author-box">
                   {% if post.writer %}
-                    By <a href="#">{{ post.writer.name }}</a>
+                    By <a style="color: #A6A6A6;" href="#">{{ post.writer.name }}</a>
                   {% else %}
                     No author
                   {% endif %}
@@ -47,7 +47,7 @@
               <img src="{{ post.image.url }}" alt="Post Image" class="img-fluid" />
             </div>
             <!-- Renk ayarlarını burada yapalım -->
-            <p style="color: #A6A6A6;">{{ post.content }}</p>
+            <p style="color: #595959;">{{ post.content }}</p>
           </div>
         </div>
         <div class="author-bio-wrap">
