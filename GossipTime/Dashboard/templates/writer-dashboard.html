@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Magazin Writer Dashboard</title>
     <link rel="stylesheet" href="{% static 'Dashboard/css/style.css' %} " />
+    <style>
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        display: grid;
+      }
+      
+      .table th,
+      .table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      
+      .table th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #f2f2f2;
+        color: black;
+      }
+    </style>
   </head>
   <body>
     {% block content %}
@@ -17,39 +38,27 @@
           <span class="menu-label">MENÜ</span>
           <ul class="navbar-links navbar-links-1">
             <li>
-              <a href="#">
+              <a href="{% url 'index' %}">
                 <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
                 <span class="nav-text">Ana Sayfa</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                <span class="nav-icon"><i class="fa-solid fa-bell"></i></span>
-                <span class="nav-text">Bildirimler</span>
+              <a href="{% url 'travel' %}">
+                <span class="nav-icon"><i class="fa-solid fa-plane"></i></span>
+                <span class="nav-text">Travel</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                <span class="nav-icon"><i class="fa-solid fa-thumbs-up"></i></span>
-                <span class="nav-text">Beğeniler</span>
+              <a href="{% url 'fashion' %}">
+                <span class="nav-icon"><i class="fa-solid fa-shirt"></i></span>
+                <span class="nav-text">Fashion</span>
               </a>
             </li>
             <li>
-              <a href="#">
-                <span class="nav-icon"><i class="fa-solid fa-thumbs-down"></i></span>
-                <span class="nav-text">Beğenilmeyenler</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="nav-icon"><i class="fa-solid fa-comment"></i></span>
-                <span class="nav-text">Yorumlar</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="nav-icon"><i class="fa-brands fa-blogger-b"></i></span>
-                <span class="nav-text">Bloglar</span>
+              <a href="{% url 'lifestyle' %}">
+                <span class="nav-icon"><i class="fa-solid fa-life-ring"></i></span>
+                <span class="nav-text">Lifestyle</span>
               </a>
             </li>
             <li>
@@ -58,30 +67,9 @@
                 <span class="nav-text">Editlenenler</span>
               </a>
             </li>
-            <li>
-              <a href="#">
-                <span class="nav-icon"><i class="fa-solid fa-handshake"></i></span>
-                <span class="nav-text">Etkileşim</span>
-              </a>
-            </li>
           </ul>
           <!-- Navbar Links Bitiş -->
-          <span class="line"></span>
-          <span class="menu-label">TERCİHLER</span>
-          <ul class="navbar-links navbar-links-2">
-            <li>
-              <a href="#">
-                <span class="nav-icon"><i class="fa-solid fa-file"></i></span>
-                <span class="nav-text">Yapılan Haberler</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span class="nav-icon"><i class="fa-solid fa-file"></i></span>
-                <span class="nav-text">Editlenen Haberler</span>
-              </a>
-            </li>
-          </ul>
+
           <!-- Side Bar Footer -->
           <div class="sidebar-footer">
             <div class="settings">
@@ -104,52 +92,35 @@
           <div class="description">
             <!-- Column 1 Başlangıç -->
             <div class="col-1">
-              <!-- Kutular Başlangıç -->
-              <div class="boxes-row">
-                <div class="balance-box">
-                  <div class="subject-row">
-                    <div class="text">
-                      <h3>Toplam Görüntülenme:</h3>
-                      <h1>40.456 <sub>Gör.</sub></h1>
-                    </div>
-                    <div class="icon">
-                      <i class="fa-solid fa-arrow-up"></i>
-                    </div>
-                  </div>
-                  <div class="progress-row">
-                    <div class="subject">Progress</div>
-                    <div class="progress-bar">
-                      <div class="progress-line" value="91%" style="max-width: 91%;"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="balance-box">
-                  <div class="subject-row">
-                    <div class="text">
-                      <h3>Toplam Beğeni:</h3>
-                      <h1>22.456 <sub>Beğeni</sub></h1>
-                    </div>
-                    <div class="icon">
-                      <i class="fa-solid fa-arrow-down"></i>
-                    </div>
-                  </div>
-                  <div class="progress-row">
-                    <div class="subject">Progress</div>
-                    <div class="progress-bar">
-                      <div class="progress-line" value="73%" style="max-width: 73%;"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- Kutular Bitiş -->
               <!-- Buttonlar Başlangıç -->
               <div class="dashboard">
                 <h1>Düzenleme</h1>
                 <div class="buttons-container">
-                  <a href="#" class="button create-button"><i class="fas fa-plus"></i> Post Oluştur</a>
-                  <a href="#" class="button edit-button"><i class="fas fa-edit"></i> Postu Düzenle</a>
+                  <a href="{% url 'create_post' %}" class="button create-button"><i class="fas fa-plus"></i> Post Oluştur</a>
                 </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Başlık</th>
+                      <th>Oluşturulma Tarihi</th>
+                      <th>Düzenle</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for post in posts %}
+                      <tr>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.live_date }}</td>
+                        <td>{{ post.created_at }}</td>
+                        <td>
+                          <a href="{% url 'update_post' post.id %}" class="button edit-button"><i class="fas fa-edit"></i> Düzenle</a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
+
               <!-- Buttonlar Bitiş -->
             </div>
             <!-- Column 1 Bitiş -->
@@ -159,36 +130,31 @@
           <div class="container">
             <div class="box">
               <h2>En Son Düzenlenen</h2>
-              <p>Post Başlığı:</p>
-              <p>Düzenleme Tarihi:</p>
+              {% if last_updated_post %}
+                <p>{{ last_updated_post.title }}</p>
+                <p>{{ last_updated_post.content }}</p>
+              {% else %}
+                <p>Henüz düzenlenmiş bir post yok.</p>
+              {% endif %}
             </div>
             <div class="box">
               <h2>En Son Beğenilen</h2>
-              <p>Post Başlığı:</p>
-              <p>Beğeni Sayısı:</p>
+              {% if last_liked_post %}
+                <p>{{ last_liked_post.title }}</p>
+                <p>{{ last_liked_post.content }}</p>
+              {% else %}
+                <p>Henüz beğenilen bir post yok.</p>
+              {% endif %}
             </div>
             <div class="box">
-              <h2>En Son Gönderilen:</h2>
-              <p>Post Başlığı:</p>
-              <p>Gönderim Tarihi:</p>
+              <h2>En Son Oluşturulan</h2>
+              {% if last_created_post %}
+                <p>{{ last_created_post.title }}</p>
+                <p>{{ last_created_post.content }}</p>
+              {% else %}
+                <p>Henüz oluşturulmuş bir post yok.</p>
+              {% endif %}
             </div>
-          </div>
-          <div class="notification-box">
-            <h2>Bildirimler</h2>
-            <ul class="notifications-list">
-              <li>
-                <span class="notification-icon"><i class="fa-solid fa-bell"></i></span>
-                <span class="notification-text">Yeni bir yorum aldınız.</span>
-                <span class="notification-time">2 saat önce</span>
-              </li>
-              <li>
-                <span class="notification-icon"><i class="fa-solid fa-bell"></i></span>
-                <span class="notification-text">Bir beğeni aldınız.</span>
-                <span class="notification-time">3 saat önce</span>
-              </li>
-              <!-- Buraya istediğiniz bildirimleri ekleyebilirsiniz -->
-            </ul>
-            <a href="#" class="view-all-notifications">Tüm Bildirimleri Gör</a>
           </div>
         </div>
         <!-- Content Section Bitiş -->

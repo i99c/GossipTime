@@ -20,26 +20,24 @@ def login(request):
             user = authenticate(request, username=login_info, password=password)
         
         if user is not None:
-            print(user)
             try:
                 writer = Writer.objects.get(user=user)
                 auth_login(request, user)
-                return redirect("index")
+                return redirect("writerdashboard")
             except Writer.DoesNotExist:
-                try: 
+                try:
                     reader = Reader.objects.get(user=user)
                     auth_login(request, user)
-                    return redirect("index")
+                    return redirect("readerdashboard")
                 except Reader.DoesNotExist:
-                    print('Kullanıcı mevcut ancak Okur veya Yazar değil.')
                     messages.error(request, 'Kullanıcı mevcut ancak Okur veya Yazar değil.')
         else:
             messages.error(request, 'Kullanıcı adı veya şifre yanlış!')
-            print('Kullanıcı adı veya şifre yanlış!')
+        
         # Başarısız giriş denemesi için render işlemi burada
-        return render(request, 'Login/login.html', {'messages':messages})
+        return render(request, 'Login/login.html', {'messages': messages})
     else:
-        return render(request, 'Login/login.html', {'messages':messages})
+        return render(request, 'Login/login.html', {'messages': messages})
 
 def register_view(request):
     if request.method == 'POST':
@@ -73,3 +71,17 @@ def register_view(request):
 
 def base(request):
     return render(request, 'main/base.html')
+
+
+def user_dashboard(request):
+    user = request.user
+    
+    try:
+        writer = Writer.objects.get(user=user)
+        return redirect('writerdashboard')
+    except Writer.DoesNotExist:
+        try:
+            reader = Reader.objects.get(user=user)
+            return redirect('readerdashboard')
+        except Reader.DoesNotExist:
+            return redirect('login')  # Eğer kullanıcı ne Writer ne de Reader ise login sayfasına yönlendir.

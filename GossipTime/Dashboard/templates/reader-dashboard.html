@@ -11,33 +11,7 @@
     <!-- ? Wrapper Başlangıç -->
     <div class="page-wrapper">
       <!-- ! Üst Bar Başlangıç -->
-      <div class="top-bar">
-        <div class="top-bar-left">
-          <div class="hamburger-btn">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <div class="logo">
-            <h2>Magazin</h2>
-          </div>
-        </div>
-        <div class="search-box">
-          <input type="text" class="input-box" placeholder="Ne aramıştınız..." />
-          <span class="search-btn"><i class="fa-solid fa-search"></i></span>
-        </div>
-        <div class="top-bar-right">
-          <div class="mode-switch">
-            <i class="fa-solid fa-moon"></i>
-          </div>
-          <div class="notifications">
-            <i class="fa-solid fa-bell"></i>
-          </div>
-          <div class="profile">
-            <img src="#" alt="Profil Resmi" />
-          </div>
-        </div>
-      </div>
+
       <!-- ! Üst Bar Bitiş -->
 
       <!-- ! Side Bar Başlangıç -->
@@ -46,33 +20,27 @@
         <span class="menu-label">MENÜ</span>
         <ul class="navbar-links navbar-links-1">
           <li>
-            <a href="#">
+            <a href="{% url 'index' %}">
               <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
               <span class="nav-text">Ana Sayfa</span>
             </a>
           </li>
           <li>
-            <a href="#">
-              <span class="nav-icon"><i class="fa-solid fa-bell"></i></span>
-              <span class="nav-text">Bildirimler</span>
+            <a href="{% url 'travel' %}">
+              <span class="nav-icon"><i class="fa-solid fa-plane"></i></span>
+              <span class="nav-text">Travel</span>
             </a>
           </li>
           <li>
-            <a href="#">
-              <span class="nav-icon"><i class="fa-solid fa-thumbs-up"></i></span>
-              <span class="nav-text">Beğendiklerim</span>
+            <a href="{% url 'fashion' %}">
+              <span class="nav-icon"><i class="fa-solid fa-shirt"></i></span>
+              <span class="nav-text">Fashion</span>
             </a>
           </li>
           <li>
-            <a href="#">
-              <span class="nav-icon"><i class="fa-solid fa-thumbs-down"></i></span>
-              <span class="nav-text">Beğenmediklerim</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="nav-icon"><i class="fa-solid fa-comment"></i></span>
-              <span class="nav-text">Yorumlarım</span>
+            <a href="{% url 'lifestyle' %}">
+              <span class="nav-icon"><i class="fa-solid fa-life-ring"></i></span>
+              <span class="nav-text">Lifestyle</span>
             </a>
           </li>
         </ul>
@@ -98,32 +66,15 @@
         <!-- Description Bitiş -->
         <div class="container">
           <div class="box">
-            <h2>En Son Yorum Yapılan</h2>
-            <p>Post Başlığı</p>
-            <p>Düzenleme Tarihi</p>
+            <h2>En Son Okunan Yapılan</h2>
+            <p>{{ form.title }}</p>
+            <p>{{ form.content }}</p>
           </div>
           <div class="box">
             <h2>En Son Beğenilen</h2>
-            <p>Post Başlığı</p>
-            <p>Beğeni Sayısı</p>
+            <p>{{ form.title }}</p>
+            <p>{{ form.content }}</p>
           </div>
-        </div>
-        <div class="notification-box">
-          <h2>Bildirimler</h2>
-          <ul class="notifications-list">
-            <li>
-              <span class="notification-icon"><i class="fa-solid fa-bell"></i></span>
-              <span class="notification-text">Yeni bir yorum aldınız.</span>
-              <span class="notification-time">2 saat önce</span>
-            </li>
-            <li>
-              <span class="notification-icon"><i class="fa-solid fa-bell"></i></span>
-              <span class="notification-text">Bir beğeni aldınız.</span>
-              <span class="notification-time">3 saat önce</span>
-            </li>
-            <!-- Buraya istediğiniz bildirimleri ekleyebilirsiniz -->
-          </ul>
-          <a href="#" class="view-all-notifications">Tüm Bildirimleri Gör</a>
         </div>
       </div>
       <!-- Content Sectiond Bitiş -->

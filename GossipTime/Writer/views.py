@@ -5,11 +5,14 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
+@login_required
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False)
+            post.user = request.user
+            post.save()
             return redirect('post-detail', slug=post.category.slug, id=post.id)
     else:
         form = PostForm()
@@ -18,7 +21,7 @@ def create_post(request):
 def update_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             form.save()
             return redirect('post_list')
@@ -72,3 +75,18 @@ def dislike(request, post_id):
 def fashion_list(request):
     fashions = Post.objects.filter(category__slug='fashion')
     return render(request, 'Main/fashion.html', {'fashions': fashions})
+
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id, user=request.user)
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'edit_post.html', {'form': form, 'post': post})
+
+    
+    

@@ -176,7 +176,7 @@ body {
     position: fixed;
     width: 240px;
     height: calc(100vh - 70px);
-    top: 70px;
+    top: 0px;
     left: 0;
     background: var(--bg-primary);
     overflow-x: hidden;
