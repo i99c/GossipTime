@@ -4,6 +4,8 @@ from .models import Writer, Reader
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 def login(request):
     if request.method == 'POST':
@@ -86,3 +88,8 @@ def user_dashboard(request):
 
 def base(request):
     return render(request, 'base.html')
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # Kullanıcıyı giriş sayfasına yönlendirir

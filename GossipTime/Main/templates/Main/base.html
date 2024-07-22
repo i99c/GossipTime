@@ -19,6 +19,28 @@
     <!-- Site Stylesheet -->
     <link rel="stylesheet" href="{% static 'assets/css/app.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}" />
+
+    <style>
+      /* Genel çıkış butonu stili */
+      .subscribe-btn {
+        background-color: #ff4b5c; /* Butonun arka plan rengi */
+        color: white; /* Buton üzerindeki metin rengi */
+        border: none; /* Butonun kenarlıklarını kaldır */
+        padding: 10px 20px; /* Butonun iç boşlukları */
+        text-align: center; /* Metni ortalar */
+        text-decoration: none; /* Metin alt çizgisini kaldırır */
+        display: inline-block; /* Butonu inline blok olarak gösterir */
+        font-size: 16px; /* Metin boyutu */
+        border-radius: 5px; /* Kenar köşeleri yuvarlatır */
+        cursor: pointer; /* Fare üzerine geldiğinde el işareti yapar */
+        transition: background-color 0.3s ease; /* Arka plan rengi geçişi */
+      }
+      
+      /* Çıkış butonuna fare ile üzerine gelindiğinde */
+      .subscribe-btn:hover {
+        background-color: #e03e48; /* Üzerine gelindiğinde arka plan rengini değiştirir */
+      }
+    </style>
   </head>
   <body>
     <!-- Site Preloader -->
@@ -97,6 +119,7 @@
                       <a href="{% url 'login' %}" class="subscribe-btn">Giriş</a>
                     </div>
                   {% endif %}
+
                   <div class="header-burger-menu">
                     <div class="burger-nav-bar">
                       <a class="tp-header__bars tp-menu-bar" href="javascript:void(0)"><i class="ri-menu-fill"></i></a>
