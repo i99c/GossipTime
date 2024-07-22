@@ -10,5 +10,7 @@ urlpatterns = [
     path('reader-dashboard/', readerdashboard, name='readerdashboard'),
     path('update/<str:post_id>/', update_post, name='update_post'),   
     path('user-dashboard/', user_dashboard, name='user_dashboard'),
+    path('profile/', profile_view, name='profile'),
+    path('profile/update/', profile_update, name='profile_update'),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

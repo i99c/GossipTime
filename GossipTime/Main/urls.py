@@ -11,4 +11,5 @@ urlpatterns = [
     path('travel/', travel, name='travel'),
     path('post/<slug:slug>/<int:id>/', post_detail, name='post-detail'),
     path('most-liked/', most_liked_post_view, name='most-liked-post'),
+    
 ]

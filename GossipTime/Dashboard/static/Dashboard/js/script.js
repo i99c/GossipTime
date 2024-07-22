@@ -23,12 +23,12 @@ function editAuthorDetails() {
 
     authorBody.innerHTML = `
         <div class="edit-container">
-            <input type="text" class="subtitle-input" value="" />
+            <input type="text" class="subtitle-input" value="${subtitle}" />
+            <input type="text" class="title-input" value="${title}" />
+            <textarea rows='2' class="bio-input">${bio}</textarea>
             <i class="fas fa-save save-icon" onclick="saveAuthorDetails()"></i>
         </div>
-        <input type="text" class="title-input" value="${title}" />
-        <textarea rows='2' class="bio-input">${bio}</textarea>
-        <div class="social-share-author-2">
+        <div class="social-share-author">
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
         </div>
@@ -41,18 +41,35 @@ function saveAuthorDetails() {
     const title = authorBody.querySelector('.title-input').value;
     const bio = authorBody.querySelector('.bio-input').value;
 
-    authorBody.innerHTML = `
-        <div class="edit-container">
-            <span class="subtitle">${subtitle}</span>
-            <i class="fas fa-edit edit-icon" onclick="editAuthorDetails()"></i>
-        </div>
-        <h5 class="title">${title}</h5>
-        <p class="author-inner-text">${bio}</p>
-        <div class="social-share-author">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-        </div>
-    `;
+    fetch("{% url 'profile' %}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            subtitle: subtitle,
+            title: title,
+            bio: bio
+        })
+    }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                authorBody.innerHTML = `
+                  <div class="edit-container">
+                      <span class="subtitle">${subtitle}</span>
+                      <i class="fas fa-edit edit-icon" onclick="editAuthorDetails()"></i>
+                  </div>
+                  <h5 class="title">${title}</h5>
+                  <p class="author-inner-text">${bio}</p>
+                  <div class="social-share-author">
+                      <a href="#"><i class="fab fa-instagram"></i></a>
+                      <a href="#"><i class="fab fa-twitter"></i></a>
+                  </div>
+              `;
+            } else {
+                alert('Bir hata oluştu.');
+            }
+        });
 }
-
 

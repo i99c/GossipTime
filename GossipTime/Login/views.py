@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login
 from .models import Writer, Reader
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 def login(request):
@@ -12,14 +13,20 @@ def login(request):
         if not login_info or not password:
             messages.error(request, 'Kullanıcı adı ve şifre gereklidir.')
             return render(request, 'Login/login.html')
-        
-        try:
-            user_mail = User.objects.get(email=login_info)
-            user = authenticate(request, username=user_mail.username, password=password)
-        except User.DoesNotExist:
+
+        user = None
+        if '@' in login_info:
+            # E-posta ile giriş yapma
+            try:
+                user = User.objects.get(email=login_info)
+            except User.DoesNotExist:
+                messages.error(request, 'Kullanıcı bulunamadı!')
+                return render(request, 'Login/login.html')
+        else:
+            # Kullanıcı adı ile giriş yapma
             user = authenticate(request, username=login_info, password=password)
-        
-        if user is not None:
+
+        if user is not None and user.check_password(password):
             try:
                 writer = Writer.objects.get(user=user)
                 auth_login(request, user)
@@ -33,11 +40,8 @@ def login(request):
                     messages.error(request, 'Kullanıcı mevcut ancak Okur veya Yazar değil.')
         else:
             messages.error(request, 'Kullanıcı adı veya şifre yanlış!')
-        
-        # Başarısız giriş denemesi için render işlemi burada
-        return render(request, 'Login/login.html', {'messages': messages})
-    else:
-        return render(request, 'Login/login.html', {'messages': messages})
+
+    return render(request, 'Login/login.html')
 
 def register_view(request):
     if request.method == 'POST':
@@ -47,41 +51,38 @@ def register_view(request):
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         password = request.POST.get('password1')
-        confirm_password = request.POST.get('password2')  # Şifre tekrarı alanının adını kontrol edin
+        confirm_password = request.POST.get('password2')
 
-    
-        
-        if password == confirm_password:
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Kullanıcı adı zaten mevcut!')
-            elif User.objects.filter(email=email).exists():
-                messages.error(request, 'Email zaten mevcut!')
-            else:
-                user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password)
-                user.save()
-                # Örneğin Reader modelini kullanıyorsanız
-                reader = Reader.objects.create(user=user, phone=phone)
-                reader.save()
-                auth_login(request, user)
-                return redirect('login')  # Kayıt başarılıysa yönlendirilecek sayfa
-        else:
+        if password != confirm_password:
             messages.error(request, 'Şifreler eşleşmiyor!')
-    
-    return render(request, 'login/login.html')
+            return render(request, 'Login/register.html')
 
-def base(request):
-    return render(request, 'main/base.html')
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Kullanıcı adı zaten mevcut!')
+        elif User.objects.filter(email=email).exists():
+            messages.error(request, 'Email zaten mevcut!')
+        else:
+            user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
+            user.save()
+            Reader.objects.create(user=user, phone=phone)
+            auth_login(request, user)
+            return redirect('login')  # Kayıt başarılıysa login sayfasına yönlendir.
 
+    return render(request, 'Login/register.html')
 
+@login_required
 def user_dashboard(request):
     user = request.user
-    
+
     try:
-        writer = Writer.objects.get(user=user)
+        Writer.objects.get(user=user)
         return redirect('writerdashboard')
     except Writer.DoesNotExist:
         try:
-            reader = Reader.objects.get(user=user)
+            Reader.objects.get(user=user)
             return redirect('readerdashboard')
         except Reader.DoesNotExist:
             return redirect('login')  # Eğer kullanıcı ne Writer ne de Reader ise login sayfasına yönlendir.
+
+def base(request):
+    return render(request, 'base.html')

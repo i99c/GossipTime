@@ -7,24 +7,62 @@
     <title>Magazin Writer Dashboard</title>
     <link rel="stylesheet" href="{% static 'Dashboard/css/style.css' %} " />
     <style>
-      .table {
+      table {
         width: 100%;
         border-collapse: collapse;
-        display: grid;
+        margin: 20px 0;
+        font-size: 16px;
       }
       
-      .table th,
-      .table td {
+      thead {
+        background-color: #f2f2f2;
+      }
+      
+      th,
+      td {
         border: 1px solid #ddd;
-        padding: 8px;
+        padding: 12px;
+        text-align: left; /* Varsayılan hizalama */
       }
       
-      .table th {
+      th {
         padding-top: 12px;
         padding-bottom: 12px;
-        text-align: left;
         background-color: #f2f2f2;
         color: black;
+      }
+      
+      /* Başlık ve hücrelerin hizalanmasını özelleştirin */
+      .table th.title,
+      .table td.title {
+        text-align: left;
+      }
+      
+      .table th.date,
+      .table td.date {
+        text-align: center;
+      }
+      
+      .table th.edit,
+      .table td.edit {
+        text-align: center;
+      }
+      
+      .button {
+        text-decoration: none;
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 14px;
+      }
+      
+      .button.edit-button {
+        background-color: #28a745; /* Düzenleme butonunun rengi */
+      }
+      
+      .button:hover {
+        opacity: 0.8;
       }
     </style>
   </head>
@@ -86,7 +124,7 @@
         <!-- Content Section Başlangıç -->
         <div class="contents" id="contents">
           <!-- Yazar Kendini Tanıtma -->
-          {% include 'partials/kendini-tanit.html' %}
+          {% comment %} {% include 'partials/kendini-tanit.html' %} {% endcomment %}
 
           <!-- Description Başlangıç -->
           <div class="description">
@@ -98,21 +136,20 @@
                 <div class="buttons-container">
                   <a href="{% url 'create_post' %}" class="button create-button"><i class="fas fa-plus"></i> Post Oluştur</a>
                 </div>
-                <table>
+                <table class="table">
                   <thead>
                     <tr>
-                      <th>Başlık</th>
-                      <th>Oluşturulma Tarihi</th>
-                      <th>Düzenle</th>
+                      <th class="title">Başlık</th>
+                      <th class="date">Oluşturulma Tarihi</th>
+                      <th class="edit">Düzenle</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for post in posts %}
                       <tr>
-                        <td>{{ post.title }}</td>
-                        <td>{{ post.live_date }}</td>
-                        <td>{{ post.created_at }}</td>
-                        <td>
+                        <td class="title">{{ post.title }}</td>
+                        <td class="date">{{ post.live_date }}</td>
+                        <td class="edit">
                           <a href="{% url 'update_post' post.id %}" class="button edit-button"><i class="fas fa-edit"></i> Düzenle</a>
                         </td>
                       </tr>

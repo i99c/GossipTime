@@ -75,16 +75,28 @@
                       <div class="theme-serach-box_inner_wrapper d-flex align-items-center">
                         <form role="search" method="get" id="searchform" class="search-form" action="#">
                           <div class="form-group">
-                            <input type="text" class="search-input" id="popup-search" value name="s" placeholder="Type keywords here....." />
+                            <input type="text" class="search-input" id="popup-search" name="s" placeholder="Type keywords here....." />
                           </div>
                           <button type="submit" id="serach-popup-btn-box" class="search-button submit-btn"><i class="icofont-search-1"></i></button>
                         </form>
                       </div>
                     </div>
                   </div>
-                  <div class="header-subscribe">
-                    <a href="{% url 'login' %}" class="subscribe-btn">Giriş</a>
-                  </div>
+                  {% if user.is_authenticated %}
+                    <div class="header-subscribe">
+                      <a href="{% url 'profile' %}" class="subscribe-btn">{{ user.username }}</a>
+                    </div>
+                    <div class="header-subscribe">
+                      <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="subscribe-btn">Çıkış</button>
+                      </form>
+                    </div>
+                  {% else %}
+                    <div class="header-subscribe">
+                      <a href="{% url 'login' %}" class="subscribe-btn">Giriş</a>
+                    </div>
+                  {% endif %}
                   <div class="header-burger-menu">
                     <div class="burger-nav-bar">
                       <a class="tp-header__bars tp-menu-bar" href="javascript:void(0)"><i class="ri-menu-fill"></i></a>
@@ -96,6 +108,7 @@
           </div>
         </div>
       </header>
+
       <!-- tp-offcanvus-area-start -->
       <div class="tp-offcanvas-area">
         <div class="tpoffcanvas">
