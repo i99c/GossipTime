@@ -59,3 +59,19 @@ def profile_update(request):
         profile.save()
         return JsonResponse({'success': True})
     return JsonResponse({'success': False})
+
+
+def writer_posts_view(request, writer_id):
+    writer = User.objects.get(id=writer_id)
+    
+    last_updated_post = Post.objects.filter(writer=writer).order_by('-updated_at').first()
+    last_created_post = Post.objects.filter(writer=writer).order_by('-created_at').first()
+    last_liked_post = Post.objects.filter(writer=writer).annotate(likes_count=models.Count('likes')).order_by('-likes_count').first()
+
+    context = {
+        'last_updated_post': last_updated_post,
+        'last_created_post': last_created_post,
+        'last_liked_post': last_liked_post,
+    }
+
+    return render(request, 'writer-dashboard.html', context)

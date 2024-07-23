@@ -18,7 +18,7 @@ def login(request):
 
         user = None
         if '@' in login_info:
-            # E-posta ile giriş yapma
+            # E-posta ile giriş yapma 
             try:
                 user = User.objects.get(email=login_info)
             except User.DoesNotExist:
@@ -29,17 +29,22 @@ def login(request):
             user = authenticate(request, username=login_info, password=password)
 
         if user is not None and user.check_password(password):
-            try:
-                writer = Writer.objects.get(user=user)
+            if user.is_superuser:
+                # Admin kullanıcısını atla
                 auth_login(request, user)
-                return redirect("writerdashboard")
-            except Writer.DoesNotExist:
+                return redirect('/admin/')
+            else:
                 try:
-                    reader = Reader.objects.get(user=user)
+                    writer = Writer.objects.get(user=user)
                     auth_login(request, user)
-                    return redirect("readerdashboard")
-                except Reader.DoesNotExist:
-                    messages.error(request, 'Kullanıcı mevcut ancak Okur veya Yazar değil.')
+                    return redirect("writerdashboard")
+                except Writer.DoesNotExist:
+                    try:
+                        reader = Reader.objects.get(user=user)
+                        auth_login(request, user)
+                        return redirect("readerdashboard")
+                    except Reader.DoesNotExist:
+                        messages.error(request, 'Kullanıcı mevcut ancak Okur veya Yazar değil.')
         else:
             messages.error(request, 'Kullanıcı adı veya şifre yanlış!')
 
