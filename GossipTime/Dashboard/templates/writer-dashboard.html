@@ -164,35 +164,6 @@
           </div>
 
           <!-- Description Bitiş -->
-          <div class="container">
-            <div class="box">
-              <h2>En Son Düzenlenen</h2>
-              {% if last_updated_post %}
-                <p>{{ last_updated_post.title }}</p>
-                <p>{{ last_updated_post.content }}</p>
-              {% else %}
-                <p>Henüz düzenlenmiş bir post yok.</p>
-              {% endif %}
-            </div>
-            <div class="box">
-              <h2>En Son Beğenilen</h2>
-              {% if last_liked_post %}
-                <p>{{ last_liked_post.title }}</p>
-                <p>{{ last_liked_post.content }}</p>
-              {% else %}
-                <p>Henüz beğenilen bir post yok.</p>
-              {% endif %}
-            </div>
-            <div class="box">
-              <h2>En Son Oluşturulan</h2>
-              {% if last_created_post %}
-                <p>{{ last_created_post.title }}</p>
-                <p>{{ last_created_post.content }}</p>
-              {% else %}
-                <p>Henüz oluşturulmuş bir post yok.</p>
-              {% endif %}
-            </div>
-          </div>
         </div>
         <!-- Content Section Bitiş -->
       </div>
