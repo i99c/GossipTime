@@ -106,7 +106,7 @@
                   </div>
                   {% if user.is_authenticated %}
                     <div class="header-subscribe">
-                      <a href="{% url 'profile' %}" class="subscribe-btn">{{ user.username }}</a>
+                      <a href="{% url 'index' %}" class="subscribe-btn">{{ user.username }}</a>
                     </div>
                     <div class="header-subscribe">
                       <form method="post" action="{% url 'logout' %}">
