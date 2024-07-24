@@ -1,162 +1,71 @@
-<div class="row">
-    <div class="col-lg-8">
-    <article class="post-block-style-wrapper post-block-template-four">
-        <div class="post-block-style-inner post-block-list-style-inner">
-        <div class="post-block-content-wrap">
-            <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">When walking, I keep my eyes straight ahead</a></h2>
-            </div>
-            <div class="post-excerpt-box">
-            <p>Anelle, don’t look down. revere the sun. watch it make a shallow arc, skimming like a stone across</p>
-            </div>
-            <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-                By <a href="javascript:void(0)">Laura Tanenbaum</a>
-            </div>
-            <div class="post-meta-date-box">Sep 22</div>
-            </div>
+{% load static %}
+
+<div class="container">
+    <div class="row">
+        <!-- Sol tarafta 3 gönderi -->
+        <div class="col-lg-6">
+            {% with oldest_posts|slice:":3" as left_posts %}
+                {% for post in left_posts %}
+                    <article class="post-block-style-wrapper post-block-template-four">
+                        <div class="post-block-style-inner post-block-list-style-inner">
+                            <div class="post-block-content-wrap">
+                                <div class="post-item-title">
+                                    <h2 class="post-title">
+                                        <a href="{% url 'post-detail' slug=post.category.slug id=post.id %}">{{ post.title }}</a>
+                                    </h2>
+                                </div>
+                                <div class="post-excerpt-box">
+                                    <p>{{ post.excerpt }}</p>
+                                </div>
+                                <div class="post-bottom-meta-list">
+                                    <div class="post-meta-author-box">
+                                        By <a href="javascript:void(0)">{{ post.writer }}</a>
+                                    </div>
+                                    <div class="post-meta-date-box">{{ post.created_date|date:"M d" }}</div>
+                                </div>
+                            </div>
+                            <div class="post-block-media-wrap">
+                                <a href="{% url 'post-detail' slug=post.category.slug id=post.id %}">
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            {% endwith %}
         </div>
-        <div class="post-block-media-wrap">
-            <a href="post-single.html"><img src="assets/media/martha.jpg" alt="Post title" /></a>
+
+        <!-- Sağ tarafta 3 gönderi -->
+        <div class="col-lg-6">
+            {% with oldest_posts|slice:"3:6" as right_posts %}
+                {% for post in right_posts %}
+                    <article class="post-block-style-wrapper post-block-template-four">
+                        <div class="post-block-style-inner post-block-list-style-inner">
+                            <div class="post-block-content-wrap">
+                                <div class="post-item-title">
+                                    <h2 class="post-title">
+                                        <a href="{% url 'post-detail' slug=post.category.slug id=post.id %}">{{ post.title }}</a>
+                                    </h2>
+                                </div>
+                                <div class="post-excerpt-box">
+                                    <p>{{ post.excerpt }}</p>
+                                </div>
+                                <div class="post-bottom-meta-list">
+                                    <div class="post-meta-author-box">
+                                        By <a href="javascript:void(0)">{{ post.writer }}</a>
+                                    </div>
+                                    <div class="post-meta-date-box">{{ post.created_date|date:"M d" }}</div>
+                                </div>
+                            </div>
+                            <div class="post-block-media-wrap">
+                                <a href="{% url 'post-detail' slug=post.category.slug id=post.id %}">
+                                    <img src="{{ post.image.url }}" alt="{{ post.title }}" />
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            {% endwith %}
         </div>
-        </div>
-    </article>
-    <article class="post-block-style-wrapper post-block-template-four">
-        <div class="post-block-style-inner post-block-list-style-inner">
-        <div class="post-block-content-wrap">
-            <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">You have to fight to reach your dream</a></h2>
-            </div>
-            <div class="post-excerpt-box">
-            <p>Anelle, don’t look down. revere the sun. watch it make a shallow arc, skimming like a stone across</p>
-            </div>
-            <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-                By <a href="javascript:void(0)">Laura Tanenbaum</a>
-            </div>
-            <div class="post-meta-date-box">Sep 22</div>
-            </div>
-        </div>
-        <div class="post-block-media-wrap">
-            <a href="post-single.html"><img src="assets/media/martha.jpg" alt="Post title" /></a>
-        </div>
-        </div>
-    </article>
-    <article class="post-block-style-wrapper post-block-template-four">
-        <div class="post-block-style-inner post-block-list-style-inner">
-        <div class="post-block-content-wrap">
-            <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">Beauty products that still beloved today</a></h2>
-            </div>
-            <div class="post-excerpt-box">
-            <p>A non-fungible token is a record on a blockchain which is associated with a particular digital or physical asset.</p>
-            </div>
-            <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-                By <a href="javascript:void(0)">Laura Tanenbaum</a>
-            </div>
-            <div class="post-meta-date-box">Sep 22</div>
-            </div>
-        </div>
-        <div class="post-block-media-wrap">
-            <a href="post-single.html"><img src="assets/media/martha.jpg" alt="Post title" /></a>
-        </div>
-        </div>
-    </article>
-    </div>
-    <div class="col-lg-4">
-    <div class="section-title mt-custom">
-        <h2 class="title-block">Most Read Articles</h2>
-    </div>
-    <article class="post-block-style-wrapper post-block-template-two most-read-block-list">
-        <div class="post-block-style-inner post-block-list-style-inner">
-        <div class="post-block-media-wrap">
-            <a href="post-single.html"><img src="assets/media/brown-fashion.jpg" alt="Post title" /></a>
-        </div>
-        <div class="post-block-content-wrap">
-            <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">Rachel Maddow Will Go Mondays Only On MSNBC</a></h2>
-            </div>
-            <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-                <a href="javascript:void(0)">Cristiano</a>
-            </div>
-            <div class="post-meta-date-box">Sep 30</div>
-            </div>
-        </div>
-        </div>
-    </article>
-    <article class="post-block-style-wrapper post-block-template-two most-read-block-list">
-        <div class="post-block-style-inner post-block-list-style-inner">
-        <div class="post-block-media-wrap">
-            <a href="post-single.html"><img src="assets/media/brown-fashion.jpg" alt="Post title" /></a>
-        </div>
-        <div class="post-block-content-wrap">
-            <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">How to Get Glowing Skin With Minimal Makeup</a></h2>
-            </div>
-            <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-                <a href="javascript:void(0)">Cristiano</a>
-            </div>
-            <div class="post-meta-date-box">Sep 30</div>
-            </div>
-        </div>
-        </div>
-    </article>
-    <article class="post-block-style-wrapper post-block-template-two most-read-block-list">
-        <div class="post-block-style-inner post-block-list-style-inner">
-        <div class="post-block-media-wrap">
-            <a href="post-single.html"><img src="assets/media/classic-dress.jpg" alt="Post title" /></a>
-        </div>
-        <div class="post-block-content-wrap">
-            <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">Using UX law in design are adept surprisingly</a></h2>
-            </div>
-            <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-                <a href="javascript:void(0)">Cristiano</a>
-            </div>
-            <div class="post-meta-date-box">Sep 30</div>
-            </div>
-        </div>
-        </div>
-    </article>
-    <article class="post-block-style-wrapper post-block-template-two most-read-block-list">
-        <div class="post-block-style-inner post-block-list-style-inner">
-        <div class="post-block-media-wrap">
-            <a href="post-single.html"><img src="assets/media/sky-hat.jpg" alt="Post title" /></a>
-        </div>
-        <div class="post-block-content-wrap">
-            <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">Five signs of a healthy intelligent person</a></h2>
-            </div>
-            <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-                <a href="javascript:void(0)">Cristiano</a>
-            </div>
-            <div class="post-meta-date-box">Sep 30</div>
-            </div>
-        </div>
-        </div>
-    </article>
-    <article class="post-block-style-wrapper post-block-template-two most-read-block-list">
-        <div class="post-block-style-inner post-block-list-style-inner">
-        <div class="post-block-media-wrap">
-            <a href="post-single.html"><img src="assets/media/bridge-front.jpg" alt="Post title" /></a>
-        </div>
-        <div class="post-block-content-wrap">
-            <div class="post-item-title">
-            <h2 class="post-title"><a href="post-single.html">Brussels Edition: Seeking a Trade Reset</a></h2>
-            </div>
-            <div class="post-bottom-meta-list">
-            <div class="post-meta-author-box">
-                <a href="javascript:void(0)">Cristiano</a>
-            </div>
-            <div class="post-meta-date-box">Sep 30</div>
-            </div>
-        </div>
-        </div>
-    </article>
     </div>
 </div>
