@@ -5,7 +5,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
-from django.shortcuts import redirect
 
 def login(request):
     if request.method == 'POST':
@@ -14,7 +13,7 @@ def login(request):
         
         if not login_info or not password:
             messages.error(request, 'Kullanıcı adı ve şifre gereklidir.')
-            return render(request, 'Login/login.html')
+            return render(request, 'login.html')
 
         user = None
         if '@' in login_info:
@@ -23,15 +22,15 @@ def login(request):
                 user = User.objects.get(email=login_info)
             except User.DoesNotExist:
                 messages.error(request, 'Kullanıcı bulunamadı!')
-                return render(request, 'Login/login.html')
+                return render(request, 'login.html')
         else:
             # Kullanıcı adı ile giriş yapma
             user = authenticate(request, username=login_info, password=password)
 
         if user is not None and user.check_password(password):
             if user.is_superuser:
-                # Admin kullanıcısını atla
-                auth_login(request, user)
+                # Admin kullanıcısını admin paneline yönlendir
+                messages.error(request, 'Admin kullanıcıları yalnızca admin paneli üzerinden giriş yapabilir.')
                 return redirect('/admin/')
             else:
                 try:
@@ -42,7 +41,7 @@ def login(request):
                     try:
                         reader = Reader.objects.get(user=user)
                         auth_login(request, user)
-                        return redirect("readerdashboard")
+                        return redirect("index")
                     except Reader.DoesNotExist:
                         messages.error(request, 'Kullanıcı mevcut ancak Okur veya Yazar değil.')
         else:
@@ -81,13 +80,18 @@ def register_view(request):
 def user_dashboard(request):
     user = request.user
 
+    if user.is_superuser:
+        # Admin kullanıcısını admin paneline yönlendir
+        messages.error(request, 'Admin kullanıcıları yalnızca admin paneli üzerinden giriş yapabilir.')
+        return redirect('/admin/')
+    
     try:
         Writer.objects.get(user=user)
         return redirect('writerdashboard')
     except Writer.DoesNotExist:
         try:
             Reader.objects.get(user=user)
-            return redirect('readerdashboard')
+            return redirect('index')
         except Reader.DoesNotExist:
             return redirect('login')  # Eğer kullanıcı ne Writer ne de Reader ise login sayfasına yönlendir.
 
@@ -97,4 +101,4 @@ def base(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('login')  # Kullanıcıyı giriş sayfasına yönlendirir
+    return redirect('index')  # Kullanıcıyı giriş sayfasına yönlendirir
