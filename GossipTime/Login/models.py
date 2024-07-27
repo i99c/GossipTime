@@ -15,13 +15,15 @@ class Reader(models.Model):
     slug = models.SlugField(verbose_name="Url", unique=True)
 
     def __str__(self):
-        if self.user.first_name and self.user.last_name:
-            return f"{self.user.first_name} {self.user.last_name}"
-        else:
-            return self.user.username
+        if self.user:
+            if self.user.first_name and self.user.last_name:
+                return f"{self.user.first_name} {self.user.last_name}"
+            else:
+                return self.user.username
+        return "Unknown User"
         
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.slug and self.user:
             full_name = f"{self.user.first_name} {self.user.last_name}".replace('ı', 'i')
             proposed_slug = slugify(full_name)
             if Reader.objects.filter(slug=proposed_slug).exists():
@@ -34,7 +36,6 @@ class Reader(models.Model):
                     counter += 1
             self.slug = proposed_slug
         super().save(*args, **kwargs)
-
 class Writer(models.Model):
     user = models.ForeignKey(User, verbose_name="Kullanıcı", on_delete=models.SET_NULL, null=True, related_name='writers')
     phone = models.CharField(max_length=20, null=True, blank=True)
@@ -47,13 +48,15 @@ class Writer(models.Model):
     bio = models.TextField(verbose_name="Biyografi", blank=True, null=True)
 
     def __str__(self):
-        if self.is_delete:
-            return f"[SİLİNMİŞ] {self.user.first_name} {self.user.last_name}"
-        else:
-            return f"{self.user.first_name} {self.user.last_name}" if self.user.first_name and self.user.last_name else self.user.username
+        if self.user:
+            if self.is_delete:
+                return f"[SİLİNMİŞ] {self.user.first_name} {self.user.last_name}"
+            else:
+                return f"{self.user.first_name} {self.user.last_name}" if self.user.first_name and self.user.last_name else self.user.username
+        return "Unknown User"
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.slug and self.user:
             full_name = f"{self.user.first_name} {self.user.last_name}"
             proposed_slug = slugify(full_name)
             if Writer.objects.filter(slug=proposed_slug).exists():
